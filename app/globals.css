@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Glassmorphism ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.glass-dark {
+  background: rgba(8, 145, 178, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(8, 145, 178, 0.2);
+}
+
+/* ─── Gradient text ─── */
+.gradient-text {
+  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #0e7490 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Hero gradient background ─── */
+.hero-bg {
+  background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 30%, #0891b2 65%, #06b6d4 100%);
+}
+
+/* ─── Section divider ─── */
+.section-divider {
+  background: linear-gradient(90deg, transparent, #0891b2, transparent);
+  height: 1px;
+  width: 100%;
+  opacity: 0.2;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #0891b2; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #0e7490; }
+
+/* ─── Bento card hover ─── */
+.bento-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(8, 145, 178, 0.2);
+}
+
+/* ─── Star rating ─── */
+.star-filled { color: #f59e0b; }
+
+/* ─── Floating bottom bar ─── */
+.mobile-bar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(8, 145, 178, 0.15);
+}
+
+/* ─── FAQ accordion smooth height ─── */
+.faq-content {
+  overflow: hidden;
+}
+
+/* ─── Map placeholder shimmer ─── */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%);
+  background-size: 2000px 100%;
+  animation: shimmer 2.5s infinite linear;
+}
+
+/* ─── Pulse ring for CTA button ─── */
+@keyframes ping-slow {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.ping-slow { animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
