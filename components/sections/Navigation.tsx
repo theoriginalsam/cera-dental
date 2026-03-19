@@ -57,10 +57,7 @@ export default function Navigation() {
                 alt="Cera Dental Clinic"
                 width={120}
                 height={48}
-                className={clsx(
-                  'h-10 w-auto object-contain transition-all duration-300 group-hover:scale-105',
-                  !scrolled && 'brightness-0 invert'
-                )}
+                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 priority
               />
             </a>
@@ -75,7 +72,7 @@ export default function Navigation() {
                     'px-3.5 py-2 rounded-lg text-sm font-medium transition-colors duration-150',
                     scrolled
                       ? 'text-slate-600 hover:text-cyan-700 hover:bg-cyan-50'
-                      : 'text-white/80 hover:text-white hover:bg-white/10'
+                      : 'text-slate-600 hover:text-cyan-700 hover:bg-cyan-50'
                   )}
                 >
                   {link.label}
@@ -101,10 +98,7 @@ export default function Navigation() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className={clsx(
-                'lg:hidden p-2 rounded-lg transition-colors',
-                scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
-              )}
+              className="lg:hidden p-2 rounded-lg transition-colors text-slate-700 hover:bg-slate-100"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
