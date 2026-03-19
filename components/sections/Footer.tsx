@@ -90,7 +90,7 @@ export default function Footer() {
                 alt="Cera Dental Clinic"
                 width={140}
                 height={56}
-                className="h-12 w-auto object-contain brightness-0 invert"
+                className="h-12 w-auto object-contain brightness-[1.8]"
               />
             </div>
 
