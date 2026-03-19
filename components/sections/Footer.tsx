@@ -1,12 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import {
   Phone,
   Mail,
   MapPin,
   Clock,
-  Stethoscope,
   Facebook,
   Instagram,
   AlertCircle,
@@ -84,16 +84,14 @@ export default function Footer() {
 
           {/* Brand + contact */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center shadow-md shadow-cyan-900/40">
-                <Stethoscope className="w-5 h-5 text-white" strokeWidth={2.5} />
-              </div>
-              <div>
-                <span className="font-extrabold text-white text-xl">Cera</span>
-                <span className="block text-[10px] font-semibold tracking-[0.15em] uppercase text-cyan-400 -mt-0.5">
-                  Dental Clinic
-                </span>
-              </div>
+            <div className="mb-5">
+              <Image
+                src="/logo.png"
+                alt="Cera Dental Clinic"
+                width={140}
+                height={56}
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
             </div>
 
             <p className="text-slate-400 text-sm leading-relaxed mb-5">

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, Menu, X, Stethoscope } from 'lucide-react'
+import { Phone, Menu, X } from 'lucide-react'
+import Image from 'next/image'
 import clsx from 'clsx'
 
 const NAV_LINKS = [
@@ -50,18 +51,18 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center shadow-md shadow-cyan-200/50 group-hover:scale-105 transition-transform">
-                <Stethoscope className="w-5 h-5 text-white" strokeWidth={2.5} />
-              </div>
-              <div className="leading-none">
-                <span className={clsx('font-extrabold text-xl tracking-tight', scrolled ? 'text-slate-900' : 'text-white')}>
-                  Cera
-                </span>
-                <span className={clsx('block text-[10px] font-semibold tracking-[0.15em] uppercase -mt-0.5', scrolled ? 'text-cyan-600' : 'text-cyan-300')}>
-                  Dental Clinic
-                </span>
-              </div>
+            <a href="#" className="flex items-center group">
+              <Image
+                src="/logo.png"
+                alt="Cera Dental Clinic"
+                width={120}
+                height={48}
+                className={clsx(
+                  'h-10 w-auto object-contain transition-all duration-300 group-hover:scale-105',
+                  !scrolled && 'brightness-0 invert'
+                )}
+                priority
+              />
             </a>
 
             {/* Desktop links */}
@@ -134,11 +135,14 @@ export default function Navigation() {
               className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-white shadow-2xl lg:hidden"
             >
               <div className="flex items-center justify-between p-5 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center">
-                    <Stethoscope className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="font-bold text-slate-900">Cera Dental</span>
+                <div className="flex items-center">
+                  <Image
+                    src="/logo.png"
+                    alt="Cera Dental Clinic"
+                    width={100}
+                    height={40}
+                    className="h-8 w-auto object-contain"
+                  />
                 </div>
                 <button
                   onClick={() => setMobileOpen(false)}
