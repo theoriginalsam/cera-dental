@@ -153,43 +153,43 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="hidden lg:block"
           >
-            <div className="bg-white rounded-3xl p-8 space-y-6 border border-slate-100 shadow-card">
+            <div className="bg-gradient-to-br from-cyan-600 via-cyan-500 to-teal-400 rounded-3xl p-8 space-y-6 shadow-card-hover">
               {/* Stars */}
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
                 ))}
-                <span className="ml-2 text-slate-500 text-sm font-medium">
+                <span className="ml-2 text-cyan-100 text-sm font-medium">
                   4.9 · 320+ Reviews
                 </span>
               </div>
 
-              <p className="text-slate-700 text-lg font-medium leading-snug">
+              <p className="text-white text-lg font-medium leading-snug">
                 &ldquo;Finally found a clinic where I feel zero anxiety. The staff is
                 incredible and my root canal was truly painless!&rdquo;
               </p>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-700 flex items-center justify-center text-white font-bold text-sm">
+                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white font-bold text-sm border border-white/30">
                   SM
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-900 text-sm">Sita M.</p>
-                  <p className="text-slate-400 text-xs">Verified Patient · Pokhara</p>
+                  <p className="font-semibold text-white text-sm">Sita M.</p>
+                  <p className="text-cyan-100 text-xs">Verified Patient · Pokhara</p>
                 </div>
               </div>
 
-              <div className="section-divider" />
+              <div className="w-full h-px bg-white/20" />
 
               {/* Stats grid */}
               <div className="grid grid-cols-2 gap-3">
                 {STATS.map((s) => (
                   <div
                     key={s.label}
-                    className="bg-slate-50 border border-slate-100 rounded-2xl p-4 text-center"
+                    className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-4 text-center"
                   >
-                    <p className="text-2xl font-extrabold gradient-text">{s.value}</p>
-                    <p className="text-xs text-slate-500 mt-1 leading-tight">{s.label}</p>
+                    <p className="text-2xl font-extrabold text-white">{s.value}</p>
+                    <p className="text-xs text-cyan-100 mt-1 leading-tight">{s.label}</p>
                   </div>
                 ))}
               </div>
