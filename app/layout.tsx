@@ -2,36 +2,35 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Cera Dental Clinic | Best Dental Clinic in Pokhara, Nepal',
+  title: 'Cera Dental Clinic | Crafting Confident Smiles',
   description:
-    'Advanced dental care in the heart of Pokhara. State-of-the-art technology & painless procedures. Root Canal, Implants, Smile Design & more. Open Sun–Fri, 9AM–6:30PM.',
+    'Cera Dental Clinic in Nayabazar, Pokhara. Dental care for adults and children, with general, restorative, aesthetic and specialist services. Open every day, 9 AM–7 PM.',
   keywords: [
-    'Best Dental Clinic in Pokhara',
-    'Dental Care Pokhara',
     'Cera Dental Clinic',
+    'Dental Clinic Pokhara',
+    'Dentist Nayabazar Pokhara',
     'Root Canal Pokhara',
-    'Dental Implants Nepal',
-    'Cosmetic Dentist Pokhara',
-    'Pediatric Dentist Nepal',
+    'Dental Implants Pokhara',
+    'Braces and Aligners Pokhara',
     'Teeth Whitening Pokhara',
-    'Invisalign Pokhara',
-    'Oral Surgeon Nepal',
+    'Paediatric Dentist Pokhara',
+    'Oral and Maxillofacial Surgery Pokhara',
   ],
   authors: [{ name: 'Cera Dental Clinic' }],
   creator: 'Cera Dental Clinic',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Cera Dental Clinic | Best Dental Clinic in Pokhara',
+    title: 'Cera Dental Clinic | Crafting Confident Smiles',
     description:
-      'Advanced dental care with state-of-the-art technology & painless procedures. Visit us at Nayabazar Rd, Pokhara 33700, Nepal.',
+      'Thoughtful dental care in Pokhara. Visit us at Pokhara-8, Nayabazar, Nepal — open every day, 9 AM–7 PM.',
     siteName: 'Cera Dental Clinic',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cera Dental Clinic | Best Dental Clinic in Pokhara',
+    title: 'Cera Dental Clinic | Crafting Confident Smiles',
     description:
-      'Advanced dental care with state-of-the-art technology & painless procedures in Pokhara, Nepal.',
+      'Comprehensive dental care for adults and children in Nayabazar, Pokhara.',
   },
   robots: {
     index: true,

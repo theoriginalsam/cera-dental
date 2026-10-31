@@ -3,18 +3,18 @@
 import { motion } from 'framer-motion'
 import {
   ShieldCheck,
-  Microscope,
-  HeartPulse,
-  BadgeCheck,
-  Award,
+  ScanLine,
+  Armchair,
+  Users,
+  Clock,
 } from 'lucide-react'
 
 const ITEMS = [
-  { icon: <ShieldCheck className="w-5 h-5" />, text: 'Sterilized Equipment' },
-  { icon: <Microscope className="w-5 h-5" />, text: 'Digital X-Ray & 3D Imaging' },
-  { icon: <HeartPulse className="w-5 h-5" />, text: 'Pain-Free Anaesthesia' },
-  { icon: <BadgeCheck className="w-5 h-5" />, text: 'NDA Certified Doctors' },
-  { icon: <Award className="w-5 h-5" />, text: 'ISO 9001:2015 Practices' },
+  { icon: <ScanLine className="w-5 h-5" />,    text: 'Digital X-Ray' },
+  { icon: <ShieldCheck className="w-5 h-5" />, text: 'Sterilization Facilities' },
+  { icon: <Armchair className="w-5 h-5" />,    text: 'Two Modern Dental Chairs' },
+  { icon: <Users className="w-5 h-5" />,       text: 'Care for All Ages' },
+  { icon: <Clock className="w-5 h-5" />,       text: 'Open Daily · 9AM–7PM' },
 ]
 
 export default function TrustBar() {

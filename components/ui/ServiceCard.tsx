@@ -56,25 +56,6 @@ export default function ServiceCard({
           <h3 className="text-lg font-bold text-slate-900 mb-1.5">{title}</h3>
           <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
         </div>
-
-        <div className="mt-auto pt-2">
-          <span className="text-cyan-600 text-sm font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-            Learn more
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </span>
-        </div>
       </div>
     </motion.div>
   )

@@ -11,55 +11,49 @@ const FAQS = [
     category: 'General',
     question: 'What are your opening hours?',
     answer:
-      'We are open Sunday through Friday, 9:00 AM to 6:30 PM. We are strictly closed on Saturdays. For urgent dental emergencies outside these hours, please call us and leave a message — we will respond as quickly as possible.',
+      'We are open every day, 9:00 AM to 7:00 PM.',
   },
   {
     category: 'General',
     question: 'How do I book an appointment?',
     answer:
-      'You can book by calling us at +977 9846020595, sending a WhatsApp message to the same number, or by walking in during clinic hours. We aim to accommodate same-day appointments for most routine and urgent cases.',
+      'Appointments are available by WhatsApp, phone call or walk-in. You can call us on +977 9846020595 or message us on WhatsApp.',
+  },
+  {
+    category: 'General',
+    question: 'Do you see dental emergencies?',
+    answer:
+      'Emergency dental availability is during clinic hours, 9 AM–7 PM, every day.',
+  },
+  {
+    category: 'Location',
+    question: 'Where is the clinic?',
+    answer:
+      'Cera Dental Clinic is at Pokhara-8, Nayabazar — opposite the GMC Hospital OPD gate and Karmachari Sanchaya Kosh Bhawan.',
   },
   {
     category: 'Treatments',
-    question: 'Is a root canal really as painful as people say?',
+    question: 'How do I know which treatment I need?',
     answer:
-      'No — modern root canal therapy is routinely described by our patients as no more uncomfortable than a routine filling. We use superior local anaesthesia, heated anaesthetic for faster onset, and rotary instrumentation to complete the procedure efficiently. Many patients read on their phones throughout!',
+      'Treatment recommendations are made following an individual assessment. The appropriate treatment is determined after clinical examination and discussion with the treating dentist.',
   },
   {
     category: 'Treatments',
-    question: 'How long does teeth whitening last?',
+    question: 'When are the specialists available?',
     answer:
-      'Our in-chair LED whitening results typically last 12–18 months depending on your diet and habits. We recommend avoiding coffee, tea, and red wine for the first 48 hours (the "white diet"). Maintenance with our take-home kit can extend results significantly.',
-  },
-  {
-    category: 'Treatments',
-    question: 'What is the process for getting dental implants?',
-    answer:
-      'The implant process has three main stages: (1) a 3D CBCT scan and treatment planning consultation, (2) the titanium post placement under local anaesthesia, and (3) the attachment of the custom ceramic crown once the implant has fully integrated with the bone (usually 3–4 months). The result is a permanent, natural-looking tooth that can last a lifetime.',
+      'Specialist consultations (orthodontics, periodontology and implantology, and oral and maxillofacial surgery) are available on selected days. Please contact us to confirm the schedule.',
   },
   {
     category: 'Children',
-    question: 'At what age should my child first visit the dentist?',
+    question: 'Do you treat children?',
     answer:
-      'We recommend bringing your child for their first visit around their 1st birthday or within 6 months of their first tooth appearing — whichever comes first. Early visits help establish positive associations with dental care and allow us to catch any developmental issues early.',
+      'Yes. We provide dental care for patients of all age groups, including paediatric dentistry for children.',
   },
   {
-    category: 'Cost & Payment',
-    question: 'Do you offer payment plans?',
+    category: 'Facilities',
+    question: 'What equipment does the clinic have?',
     answer:
-      'Yes. For major treatments such as implants, smile design, and full-mouth rehabilitation, we offer interest-free installment plans. Please speak to our patient coordinator during your consultation to discuss which plan works best for your situation.',
-  },
-  {
-    category: 'Cost & Payment',
-    question: 'How much does a check-up cost?',
-    answer:
-      'Our comprehensive check-up (including digital X-rays and a full oral cancer screening) starts from NPR 800. We believe that transparent, affordable preventive care saves patients significantly more money — and discomfort — in the long run.',
-  },
-  {
-    category: 'Technology',
-    question: 'What technology do you use?',
-    answer:
-      'We invest in the best available technology: digital X-rays (90% lower radiation than film), 3D cone-beam CT (CBCT) scanner, intraoral HD cameras, CEREC CAD/CAM for same-day ceramic restorations, ultrasonic cleaning systems, and apex locators for precision RCT. Our sterilisation cycle is fully validated and logged.',
+      'Our clinic is equipped with digital X-ray, sterilization facilities and two modern dental chairs, in a clean and comfortable space.',
   },
 ]
 
@@ -152,7 +146,7 @@ export default function FAQ() {
           eyebrow="Common Questions"
           title="Frequently Asked"
           titleHighlight="Questions"
-          description="Can't find what you're looking for? Call us at +977 9846020595 and we'll answer personally."
+          description="Can't find what you're looking for? Call us at +977 9846020595 or message us on WhatsApp."
         />
 
         <div className="flex flex-col gap-3">
@@ -177,14 +171,16 @@ export default function FAQ() {
           <div className="flex-1">
             <p className="font-bold text-slate-900 mb-1">Still have questions?</p>
             <p className="text-slate-500 text-sm">
-              Our patient coordinators are available Sun–Fri, 9AM–6:30PM.
+              We&apos;re happy to help — every day, 9 AM–7 PM.
             </p>
           </div>
           <a
-            href="tel:+9779846020595"
+            href="https://wa.me/9779768059598"
+            target="_blank"
+            rel="noopener noreferrer"
             className="shrink-0 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-6 py-3 rounded-xl text-sm shadow-md shadow-cyan-200 transition-all hover:scale-[1.02]"
           >
-            Call Us Now
+            Message Us on WhatsApp
           </a>
         </motion.div>
       </div>

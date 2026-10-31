@@ -7,12 +7,11 @@ import Image from 'next/image'
 import clsx from 'clsx'
 
 const NAV_LINKS = [
-  { label: 'Services',     href: '#services' },
-  { label: 'Why Us',       href: '#why-us' },
-  { label: 'Our Doctors',  href: '#doctors' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'FAQ',          href: '#faq' },
-  { label: 'Contact',      href: '#contact' },
+  { label: 'About',      href: '#about' },
+  { label: 'Treatments', href: '#services' },
+  { label: 'Our Team',   href: '#team' },
+  { label: 'FAQ',        href: '#faq' },
+  { label: 'Find Us',    href: '#visit' },
 ]
 
 export default function Navigation() {
@@ -51,7 +50,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* Logo */}
-            <a href="#" className="flex items-center group">
+            <a href="#home" className="flex items-center group">
               <Image
                 src="/logo.png"
                 alt="Cera Dental Clinic"
@@ -170,7 +169,7 @@ export default function Navigation() {
                   <Phone className="w-4 h-4" /> Call Now
                 </a>
                 <a
-                  href="https://wa.me/9779846020595"
+                  href="https://wa.me/9779768059598"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-500 text-white font-semibold text-sm shadow-md shadow-emerald-200"

@@ -2,32 +2,37 @@
 
 import { motion } from 'framer-motion'
 import {
-  Phone,
   CalendarCheck,
-  Star,
   ShieldCheck,
   Clock,
   MapPin,
+  Phone,
   ChevronDown,
+  ArrowDown,
 } from 'lucide-react'
-import Button from '@/components/ui/Button'
 
 const STATS = [
-  { value: '12+',    label: 'Years of Excellence' },
-  { value: '8,500+', label: 'Happy Patients' },
-  { value: '3',      label: 'Specialist Doctors' },
-  { value: '99%',    label: 'Pain-Free Success Rate' },
+  { value: '2025',   label: 'Established' },
+  { value: '12',     label: 'Treatments Offered' },
+  { value: '4',      label: 'Dentists on Our Team' },
+  { value: '7 days', label: 'Open Every Week' },
 ]
 
 const TRUST_ITEMS = [
-  { icon: <ShieldCheck className="w-4 h-4" />, text: 'Certified & Accredited' },
-  { icon: <Star className="w-4 h-4" />,        text: '4.9 / 5 Rating' },
-  { icon: <Clock className="w-4 h-4" />,       text: 'Open Sun–Fri, 9AM–6:30PM' },
+  { icon: <ShieldCheck className="w-4 h-4" />, text: 'Established 2025' },
+  { icon: <MapPin className="w-4 h-4" />,      text: 'Pokhara · Nayabazar' },
+  { icon: <Clock className="w-4 h-4" />,       text: 'Open Daily, 9AM–7PM' },
+]
+
+const VISIT_DETAILS = [
+  { icon: <MapPin className="w-4 h-4" />, label: 'Visit Us',         value: 'Nayabazar, Pokhara' },
+  { icon: <Clock className="w-4 h-4" />,  label: 'Opening Hours',    value: 'Every day · 9 AM–7 PM' },
+  { icon: <Phone className="w-4 h-4" />,  label: 'For Appointments', value: 'Call or WhatsApp' },
 ]
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen bg-white overflow-hidden flex items-center">
+    <section id="home" className="relative min-h-screen bg-white overflow-hidden flex items-center">
 
       {/* Subtle cyan accent — top-right only */}
       <div className="absolute top-0 right-0 w-[55%] h-full bg-gradient-to-bl from-cyan-50 via-white to-white pointer-events-none" />
@@ -63,7 +68,7 @@ export default function Hero() {
                 <span className="ping-slow absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
               </span>
-              Now Accepting New Patients — No Waiting List
+              Thoughtful Dental Care in Pokhara
             </motion.div>
 
             {/* H1 */}
@@ -73,11 +78,9 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] tracking-tight"
             >
-              Advanced Dental Care
+              Crafting
               <br />
-              <span className="gradient-text">in the Heart of</span>
-              <br />
-              Pokhara.
+              <span className="gradient-text">confident smiles.</span>
             </motion.h1>
 
             {/* Sub-headline */}
@@ -87,9 +90,8 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-lg"
             >
-              Experience state-of-the-art technology &amp; genuinely painless
-              procedures. From routine check-ups to full Smile Design — we
-              restore confidence, one smile at a time.
+              Comprehensive dental care for adults and children, delivered with a
+              patient-centred approach in a clean and comfortable setting.
             </motion.p>
 
             {/* Trust pills */}
@@ -117,20 +119,22 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-3"
             >
-              <Button
-                variant="primary"
-                size="lg"
-                icon={<CalendarCheck className="w-5 h-5" />}
+              <a
+                href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 text-lg font-semibold rounded-xl bg-cyan-600 text-white hover:bg-cyan-700 shadow-md shadow-cyan-200 hover:shadow-lg hover:shadow-cyan-300 transition-all hover:scale-[1.02]"
               >
-                Book Appointment
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                icon={<Phone className="w-5 h-5" />}
+                <CalendarCheck className="w-5 h-5" />
+                Book an Appointment
+              </a>
+              <a
+                href="#services"
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 text-lg font-semibold rounded-xl border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50 transition-all hover:scale-[1.02]"
               >
-                Call +977 984-602-0595
-              </Button>
+                <ArrowDown className="w-5 h-5" />
+                Explore Treatments
+              </a>
             </motion.div>
 
             {/* Address */}
@@ -138,15 +142,15 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55 }}
-              href="#contact"
+              href="#visit"
               className="flex items-center gap-2 text-slate-400 hover:text-cyan-600 text-sm transition-colors w-fit"
             >
               <MapPin className="w-4 h-4 text-cyan-500 shrink-0" />
-              Nayabazar Rd, Pokhara 33700, Nepal
+              Pokhara-8, Nayabazar, Nepal
             </motion.a>
           </div>
 
-          {/* ── Right — glass card ── */}
+          {/* ── Right — gradient card ── */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -154,29 +158,27 @@ export default function Hero() {
             className="hidden lg:block"
           >
             <div className="bg-gradient-to-br from-cyan-600 via-cyan-500 to-teal-400 rounded-3xl p-8 space-y-6 shadow-card-hover">
-              {/* Stars */}
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
-                ))}
-                <span className="ml-2 text-cyan-100 text-sm font-medium">
-                  4.9 · 320+ Reviews
-                </span>
+              <div>
+                <p className="text-cyan-100 text-xs font-semibold tracking-widest uppercase">
+                  Your Smile, Our Care
+                </p>
+                <p className="text-white text-3xl font-extrabold leading-tight mt-2">
+                  Care with confidence.
+                </p>
               </div>
 
-              <p className="text-white text-lg font-medium leading-snug">
-                &ldquo;Finally found a clinic where I feel zero anxiety. The staff is
-                incredible and my root canal was truly painless!&rdquo;
-              </p>
-
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white font-bold text-sm border border-white/30">
-                  SM
-                </div>
-                <div>
-                  <p className="font-semibold text-white text-sm">Sita M.</p>
-                  <p className="text-cyan-100 text-xs">Verified Patient · Pokhara</p>
-                </div>
+              <div className="space-y-3">
+                {VISIT_DETAILS.map((d) => (
+                  <div key={d.label} className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white border border-white/30 shrink-0">
+                      {d.icon}
+                    </div>
+                    <div>
+                      <p className="text-cyan-100 text-xs uppercase tracking-wider">{d.label}</p>
+                      <p className="font-semibold text-white text-sm">{d.value}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
 
               <div className="w-full h-px bg-white/20" />
@@ -218,7 +220,7 @@ export default function Hero() {
 
       {/* Scroll cue */}
       <motion.a
-        href="#services"
+        href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}

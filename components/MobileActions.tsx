@@ -51,7 +51,7 @@ export default function MobileActions() {
 
               {/* WhatsApp button */}
               <a
-                href="https://wa.me/9779846020595?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
+                href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 flex flex-col items-center justify-center gap-1 bg-emerald-500 text-white active:bg-emerald-600 transition-colors"
@@ -87,7 +87,7 @@ export default function MobileActions() {
 
         {/* WhatsApp FAB */}
         <motion.a
-          href="https://wa.me/9779846020595?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
+          href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.1 }}

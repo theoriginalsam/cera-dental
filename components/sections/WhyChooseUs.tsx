@@ -2,86 +2,54 @@
 
 import { motion } from 'framer-motion'
 import {
-  Microscope,
-  Clock,
-  HeartHandshake,
+  ScanLine,
   ShieldPlus,
-  Banknote,
-  Smile,
-  Languages,
-  Wifi,
+  Armchair,
+  Sofa,
+  HeartHandshake,
 } from 'lucide-react'
 import SectionHeader from '@/components/ui/SectionHeader'
 import clsx from 'clsx'
 
 const FEATURES = [
   {
-    icon: <Microscope className="w-6 h-6" />,
-    title: 'State-of-the-Art Technology',
+    icon: <ScanLine className="w-6 h-6" />,
+    title: 'Digital X-Ray',
     description:
-      'Digital X-ray (90% less radiation), 3D CBCT cone-beam scanner, intraoral cameras and CEREC same-day crowns.',
+      'Available at the clinic, so imaging can be done on site as part of your assessment.',
     color: 'bg-cyan-600',
     span: 'lg:col-span-2',
     size: 'large',
   },
   {
-    icon: <HeartHandshake className="w-6 h-6" />,
-    title: 'Patient-First Philosophy',
-    description:
-      'We explain every step before we start. No surprises, no pressure — just compassionate, transparent care.',
-    color: 'bg-violet-600',
-    span: '',
-    size: 'normal',
-  },
-  {
     icon: <ShieldPlus className="w-6 h-6" />,
-    title: 'Strict Sterilisation',
-    description:
-      'Autoclave sterilisation after every patient. Single-use instruments where applicable. Clinic-grade HEPA air filtration.',
+    title: 'Sterilization Facilities',
+    description: 'Part of our clinical setup, with infection control at the centre of our approach.',
     color: 'bg-emerald-600',
     span: '',
     size: 'normal',
   },
   {
-    icon: <Clock className="w-6 h-6" />,
-    title: 'Same-Day Appointments',
-    description:
-      'Most cases can be seen the same day. Urgent walk-ins always welcome during clinic hours (Sun–Fri 9AM–6:30PM).',
-    color: 'bg-amber-500',
-    span: '',
-    size: 'normal',
-  },
-  {
-    icon: <Banknote className="w-6 h-6" />,
-    title: 'Transparent Pricing',
-    description:
-      'Upfront treatment quotes with no hidden fees. Flexible payment plans available for major procedures.',
-    color: 'bg-rose-500',
-    span: '',
-    size: 'normal',
-  },
-  {
-    icon: <Smile className="w-6 h-6" />,
-    title: 'Anxiety-Free Experience',
-    description:
-      'Topical numbing before every injection. Happy gas (N₂O) and IV sedation available for nervous patients.',
-    color: 'bg-pink-500',
-    span: 'lg:col-span-2',
-    size: 'large',
-  },
-  {
-    icon: <Languages className="w-6 h-6" />,
-    title: 'Multilingual Team',
-    description: 'Nepali, Hindi, and English-speaking staff. We make sure you understand your treatment plan completely.',
+    icon: <Armchair className="w-6 h-6" />,
+    title: 'Two Modern Dental Chairs',
+    description: 'Modern equipment for dental treatment.',
     color: 'bg-indigo-600',
     span: '',
     size: 'normal',
   },
   {
-    icon: <Wifi className="w-6 h-6" />,
-    title: 'Comfortable Waiting Area',
-    description: 'Free high-speed Wi-Fi, refreshments, and entertainment screens to make your wait as comfortable as possible.',
+    icon: <Sofa className="w-6 h-6" />,
+    title: 'Clean, Comfortable Space',
+    description: 'A welcoming patient environment for patients of all ages.',
     color: 'bg-teal-600',
+    span: '',
+    size: 'normal',
+  },
+  {
+    icon: <HeartHandshake className="w-6 h-6" />,
+    title: 'Ethical Care',
+    description: 'Ethical dental care and treatment options at reasonable prices.',
+    color: 'bg-violet-600',
     span: '',
     size: 'normal',
   },
@@ -104,13 +72,13 @@ const itemVariants = {
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-us" className="py-24 bg-white">
+    <section id="environment" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Why Patients Love Us"
-          title="The Cera Dental"
-          titleHighlight="Difference"
-          description="We've spent years engineering an experience that makes you forget you're at the dentist — in the best possible way."
+          eyebrow="The Cera Environment"
+          title="Comfort in every"
+          titleHighlight="detail."
+          description="Our clinic is equipped with digital X-ray, sterilization facilities and two modern dental chairs. We aim to provide a clean and comfortable space for patients of all ages."
         />
 
         {/* Bento grid */}

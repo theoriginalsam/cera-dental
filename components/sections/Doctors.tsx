@@ -5,65 +5,62 @@ import DoctorCard from '@/components/ui/DoctorCard'
 
 const DOCTORS = [
   {
-    name: 'Dr. Aarav Joshi',
-    title: 'BDS, MDS (Oral Surgery)',
-    specialty: 'Oral & Maxillofacial Surgeon',
-    experience: '12+ years experience',
-    qualifications: ['MDS Oral Surgery', 'AO Trauma Fellow', 'FNANS Member'],
-    bio:
-      'Dr. Joshi is one of the most sought-after oral surgeons in the Gandaki Province. He specialises in wisdom tooth extraction, jaw corrections, facial trauma reconstruction, and implant placements using guided surgery protocols. He trained at BPKIHS and completed an advanced fellowship in Singapore.',
-    initials: 'AJ',
+    name: 'Dr. Shisham Khanal',
+    title: 'BDS · Medical Officer',
+    specialty: 'Aesthetic Dentistry',
+    registration: 'NMC Registration No. 37766',
+    experience: "3 years' experience",
+    initials: 'SK',
     color: 'bg-cyan-600',
   },
   {
-    name: 'Dr. Sunita Thapa',
-    title: 'BDS, Certificate Invisalign Specialist',
-    specialty: 'Cosmetic Dentist & Invisalign Specialist',
-    experience: '9 years experience',
-    qualifications: ['Invisalign Certified', 'AACD Associate', 'Smile Design Expert'],
-    bio:
-      'Dr. Thapa has transformed thousands of smiles across Nepal and is the clinic\'s lead aesthetic dentist. Her expertise spans composite bonding, porcelain veneers, digital smile design, and full-arch Invisalign. She believes every patient deserves a smile they\'re proud to show the world.',
-    initials: 'ST',
+    name: 'Dr. Anjal GC',
+    title: 'BDS, MDS',
+    specialty: 'Consultant Orthodontics, Braces and Aligner Specialist',
+    registration: 'NMC Registration No. 23434',
+    initials: 'AG',
     color: 'bg-violet-600',
   },
   {
-    name: 'Dr. Kevin Pradhan',
-    title: 'BDS, MDS (Pedodontics)',
-    specialty: 'Pediatric Dentist & Specialist in Anxious Patients',
-    experience: '7 years experience',
-    qualifications: ['MDS Pedodontics', 'IAPD Member', 'Happy Gas Certified'],
-    bio:
-      "Dr. Kevin's gentle manner has made him the favourite dentist for children and adults who experience dental anxiety throughout Pokhara. He uses a tell-show-do approach, distraction therapy, and when needed, conscious sedation to ensure every visit feels safe. He is also trained in Special Needs dentistry.",
-    initials: 'KP',
+    name: 'Dr. Suresh Bhandari',
+    title: 'BDS, MDS',
+    specialty: 'Consultant Periodontology and Oral Implantology',
+    initials: 'SB',
     color: 'bg-emerald-600',
+  },
+  {
+    name: 'Dr. Yashuma Tiwari',
+    title: 'BDS, MDS',
+    specialty: 'Consultant Oral and Maxillofacial Surgery',
+    initials: 'YT',
+    color: 'bg-amber-500',
   },
 ]
 
 export default function Doctors() {
   return (
-    <section id="doctors" className="py-24 bg-slate-50">
+    <section id="team" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Meet the Team"
-          title="Our Expert"
-          titleHighlight="Doctors"
-          description="Board-certified specialists with combined experience of 28+ years. Real people who genuinely care about your oral health."
+          eyebrow="Meet Our Dental Team"
+          title="People behind"
+          titleHighlight="your smile."
+          description="Our dental team includes general and specialist dental professionals."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {DOCTORS.map((doctor, i) => (
             <DoctorCard key={doctor.name} {...doctor} index={i} />
           ))}
         </div>
 
-        {/* Accreditation note */}
+        {/* Schedule note */}
         <div className="mt-10 text-center">
           <p className="text-slate-400 text-sm">
-            All doctors are registered with the{' '}
+            Specialist consultations are available on selected days;{' '}
             <span className="text-slate-600 font-medium">
-              Nepal Dental Association (NDA)
-            </span>{' '}
-            and participate in annual continuing education programmes.
+              please contact us to confirm the schedule.
+            </span>
           </p>
         </div>
       </div>

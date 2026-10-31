@@ -2,13 +2,17 @@
 
 import { motion } from 'framer-motion'
 import {
-  Search,
-  Sparkles,
+  Stethoscope,
+  Droplets,
+  Layers,
   Zap,
-  Anchor,
+  Crown,
+  Sparkles,
   Sun,
-  ScanLine,
-  SmilePlus,
+  Gem,
+  Smile,
+  Anchor,
+  Syringe,
   Baby,
 } from 'lucide-react'
 import SectionHeader from '@/components/ui/SectionHeader'
@@ -16,72 +20,76 @@ import ServiceCard from '@/components/ui/ServiceCard'
 
 const SERVICES = [
   {
-    icon: <Search className="w-5 h-5" />,
-    title: 'Comprehensive Check-ups',
-    description:
-      'Full oral health evaluation, digital X-rays, and a personalised care plan — all in one visit. Catch problems early, save more later.',
-    tag: 'Most Popular',
+    icon: <Stethoscope className="w-5 h-5" />,
+    title: 'General Dentistry',
+    description: 'Routine dental check-ups and general dental care.',
     accent: 'bg-cyan-100',
-    large: false,
   },
   {
-    icon: <Sparkles className="w-5 h-5" />,
-    title: 'Smile Design',
-    description:
-      'Bespoke cosmetic treatment combining veneers, whitening, and contouring. We digitally preview your new smile before a single tooth is touched.',
-    tag: 'Premium',
-    accent: 'bg-violet-100',
-    large: true,
+    icon: <Droplets className="w-5 h-5" />,
+    title: 'Scaling & Polishing',
+    description: 'Professional cleaning for teeth and gums.',
+    accent: 'bg-sky-100',
+  },
+  {
+    icon: <Layers className="w-5 h-5" />,
+    title: 'Dental Fillings',
+    description: 'Restorative treatment for teeth affected by decay.',
+    accent: 'bg-teal-100',
   },
   {
     icon: <Zap className="w-5 h-5" />,
-    title: 'Root Canal Therapy',
-    description:
-      'Modern single-visit RCT with rotary instruments and apex locators. Patients consistently report it as no more uncomfortable than a filling.',
+    title: 'Root Canal Treatment',
+    description: 'Root canal treatment (RCT).',
     accent: 'bg-rose-100',
-    large: false,
   },
   {
-    icon: <Anchor className="w-5 h-5" />,
-    title: 'Dental Implants',
-    description:
-      'Titanium implants that fuse with bone for a lifetime of durability. Full treatment planning with 3D CBCT imaging for precision placement.',
-    tag: 'Advanced',
-    accent: 'bg-amber-100',
-    large: false,
+    icon: <Crown className="w-5 h-5" />,
+    title: 'Crowns & Bridges',
+    description: 'Fixed restorative options for damaged or missing teeth.',
+    accent: 'bg-indigo-100',
+  },
+  {
+    icon: <Sparkles className="w-5 h-5" />,
+    title: 'Aesthetic Dentistry',
+    description: 'Aesthetic and cosmetic dental treatments.',
+    accent: 'bg-violet-100',
   },
   {
     icon: <Sun className="w-5 h-5" />,
     title: 'Teeth Whitening',
-    description:
-      'In-chair LED whitening that lifts stains up to 8 shades in 60 minutes, plus take-home trays for maintenance. Safe, fast, and long-lasting.',
+    description: 'Teeth whitening and bleaching.',
     accent: 'bg-yellow-100',
-    large: false,
   },
   {
-    icon: <ScanLine className="w-5 h-5" />,
-    title: 'Invisalign & Clear Aligners',
-    description:
-      'Straighten teeth discreetly with removable clear aligners. We are certified Invisalign providers with full digital scanning — no messy moulds.',
-    tag: 'Invisible',
+    icon: <Gem className="w-5 h-5" />,
+    title: 'Dental Diamonds',
+    description: 'Small decorative tooth gems bonded to the tooth surface.',
+    accent: 'bg-fuchsia-100',
+  },
+  {
+    icon: <Smile className="w-5 h-5" />,
+    title: 'Braces & Aligners',
+    description: 'Orthodontic treatment with braces and aligners.',
     accent: 'bg-cyan-100',
-    large: false,
   },
   {
-    icon: <SmilePlus className="w-5 h-5" />,
-    title: 'Crowns & Bridges',
-    description:
-      'Same-day CEREC ceramic crowns and precision-fit bridges. Match your natural shade perfectly with our in-house digital milling system.',
-    accent: 'bg-indigo-100',
-    large: false,
+    icon: <Anchor className="w-5 h-5" />,
+    title: 'Dental Implants',
+    description: 'Dental implant treatment.',
+    accent: 'bg-amber-100',
+  },
+  {
+    icon: <Syringe className="w-5 h-5" />,
+    title: 'Tooth Extraction',
+    description: 'Tooth removal when clinically indicated.',
+    accent: 'bg-slate-200',
   },
   {
     icon: <Baby className="w-5 h-5" />,
-    title: 'Pediatric Dentistry',
-    description:
-      'Child-friendly visits designed to eliminate dental fear. Our specialist uses tell-show-do techniques and nitrous oxide for a positive first experience.',
+    title: 'Paediatric Dentistry',
+    description: 'Dental care for children.',
     accent: 'bg-pink-100',
-    large: false,
   },
 ]
 
@@ -100,10 +108,10 @@ export default function Services() {
     <section id="services" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="What We Offer"
-          title="Our Services"
-          titleHighlight="& Treatments"
-          description="From preventive care to complete smile makeovers — every procedure is performed with the latest technology and a gentle touch."
+          eyebrow="Dental Care at Cera"
+          title="Care for every"
+          titleHighlight="kind of smile."
+          description="Explore the dental services listed by our clinic. Treatment recommendations are made following an individual assessment."
         />
 
         {/* Bento grid */}
@@ -115,18 +123,13 @@ export default function Services() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {SERVICES.map((service, i) => (
-            <motion.div
-              key={service.title}
-              variants={itemVariants}
-              className={service.large ? 'sm:col-span-2 lg:col-span-2' : ''}
-            >
+            <motion.div key={service.title} variants={itemVariants}>
               <ServiceCard
                 icon={service.icon}
                 title={service.title}
                 description={service.description}
-                tag={service.tag}
+                tag={String(i + 1).padStart(2, '0')}
                 accent={service.accent}
-                large={service.large}
                 className="h-full"
               />
             </motion.div>
@@ -141,15 +144,17 @@ export default function Services() {
           transition={{ delay: 0.3 }}
           className="mt-12 text-center"
         >
-          <p className="text-slate-500 mb-4 text-sm">
-            Not sure which treatment you need? We offer a{' '}
-            <span className="text-cyan-600 font-semibold">free initial consultation</span>.
+          <p className="text-slate-500 mb-4 text-sm max-w-xl mx-auto">
+            The appropriate treatment is determined after clinical examination
+            and discussion with the treating dentist.
           </p>
           <a
-            href="tel:+9779846020595"
+            href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-8 py-3.5 rounded-xl shadow-md shadow-cyan-200 transition-all hover:scale-[1.02]"
           >
-            Schedule a Free Consultation
+            Book an Appointment
           </a>
         </motion.div>
       </div>

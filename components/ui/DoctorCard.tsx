@@ -1,16 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Award, Calendar } from 'lucide-react'
+import { BadgeCheck, Calendar } from 'lucide-react'
 import clsx from 'clsx'
 
 interface DoctorCardProps {
   name: string
   title: string
   specialty: string
-  experience: string
-  qualifications: string[]
-  bio: string
+  registration?: string
+  experience?: string
   initials: string
   color: string
   index?: number
@@ -20,9 +19,8 @@ export default function DoctorCard({
   name,
   title,
   specialty,
+  registration,
   experience,
-  qualifications,
-  bio,
   initials,
   color,
   index = 0,
@@ -38,61 +36,53 @@ export default function DoctorCard({
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       whileHover={{ y: -6 }}
-      className="group relative bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-card hover:shadow-card-hover transition-shadow duration-300"
+      className="group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-card hover:shadow-card-hover transition-shadow duration-300"
     >
       {/* Top colour band */}
       <div className={clsx('h-2 w-full', color)} />
 
-      <div className="p-6">
-        {/* Avatar + name */}
-        <div className="flex items-start gap-4 mb-4">
-          <div
-            className={clsx(
-              'w-16 h-16 rounded-2xl flex items-center justify-center',
-              'text-white text-xl font-extrabold shrink-0 shadow-md',
-              color
-            )}
-          >
-            {initials}
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 leading-tight">
-              {name}
-            </h3>
-            <p className="text-cyan-600 font-semibold text-sm">{title}</p>
-            <p className="text-slate-500 text-xs mt-0.5">{specialty}</p>
-          </div>
+      <div className="p-6 flex-1">
+        {/* Avatar */}
+        <div
+          className={clsx(
+            'w-16 h-16 rounded-2xl flex items-center justify-center mb-4',
+            'text-white text-xl font-extrabold shadow-md',
+            color
+          )}
+        >
+          {initials}
         </div>
 
-        {/* Bio */}
-        <p className="text-slate-500 text-sm leading-relaxed mb-4">{bio}</p>
+        {/* Name + specialty */}
+        <h3 className="text-lg font-bold text-slate-900 leading-tight">{name}</h3>
+        <p className="text-cyan-600 font-semibold text-sm mt-0.5">{title}</p>
+        <p className="text-slate-500 text-sm mt-2 leading-relaxed">{specialty}</p>
 
         {/* Meta */}
-        <div className="flex items-center gap-4 mb-4 text-sm">
-          <span className="flex items-center gap-1.5 text-slate-600">
-            <Calendar className="w-4 h-4 text-cyan-500" />
-            {experience}
-          </span>
-        </div>
-
-        {/* Qualifications */}
-        <div className="flex flex-wrap gap-2">
-          {qualifications.map((q) => (
-            <span
-              key={q}
-              className="inline-flex items-center gap-1 text-xs font-medium bg-cyan-50 text-cyan-700 px-2.5 py-1 rounded-lg"
-            >
-              <Award className="w-3 h-3" />
-              {q}
-            </span>
-          ))}
-        </div>
+        {(registration || experience) && (
+          <div className="flex flex-col gap-1.5 mt-4 text-xs text-slate-600">
+            {registration && (
+              <span className="flex items-center gap-1.5">
+                <BadgeCheck className="w-4 h-4 text-cyan-500 shrink-0" />
+                {registration}
+              </span>
+            )}
+            {experience && (
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-4 h-4 text-cyan-500 shrink-0" />
+                {experience}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Hover CTA strip */}
+      {/* CTA strip */}
       <div className="px-6 pb-5">
         <a
-          href="tel:+9779846020595"
+          href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50 border border-slate-200 hover:border-cyan-200 text-slate-600 hover:text-cyan-700 text-sm font-semibold transition-all duration-200"
         >
           Book Appointment

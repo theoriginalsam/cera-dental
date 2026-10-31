@@ -25,13 +25,13 @@ A high-performance, conversion-optimized marketing website for **Cera Dental Cli
 ## Features
 
 - **Glassmorphism Navigation** — sticky, blur-backdrop nav that transitions on scroll
-- **White Hero Section** — clean layout with cyan accents and a gradient testimonial card
-- **Bento Grid Services** — 8 treatments in an asymmetric card grid with stagger animations
-- **Why Choose Us Grid** — 8 clinic differentiators in a mixed-size bento layout
-- **Doctor Profiles** — 3 specialist cards (Oral Surgery, Cosmetic, Pediatric)
-- **Testimonials** — 5 verified patient reviews with 5-star ratings
-- **FAQ Accordion** — 9 Q&As with smooth Framer Motion AnimatePresence transitions
-- **Google Maps Embed** — Nayabazar Rd, Pokhara location in the footer
+- **White Hero Section** — clean layout with cyan accents and a gradient visit-details card
+- **About Section** — clinic background and approach
+- **Services Grid** — 12 treatments in a card grid with stagger animations
+- **Clinic Environment Grid** — equipment and facilities in a mixed-size bento layout
+- **Dental Team** — 4 dentist cards (Aesthetic, Orthodontics, Periodontology & Implantology, Oral & Maxillofacial Surgery)
+- **FAQ Accordion** — 8 Q&As with smooth Framer Motion AnimatePresence transitions
+- **Google Maps Embed** — Nayabazar, Pokhara location in the footer
 - **Mobile Floating Bar** — sticky Call + WhatsApp bottom tabs on mobile
 - **Desktop FABs** — floating Call + WhatsApp + scroll-to-top buttons
 - **SEO Optimised** — proper H1/H2 hierarchy, full OpenGraph & Twitter metadata
@@ -56,12 +56,12 @@ cera-dental/
 │   │
 │   ├── sections/
 │   │   ├── Navigation.tsx  # Glassmorphism sticky nav + mobile drawer
-│   │   ├── Hero.tsx        # Full-height hero with gradient testimonial card
-│   │   ├── TrustBar.tsx    # 5-item trust signal bar
-│   │   ├── Services.tsx    # Bento grid service catalog
-│   │   ├── WhyChooseUs.tsx # Why choose us bento grid
-│   │   ├── Doctors.tsx     # Doctor profile cards
-│   │   ├── Testimonials.tsx# Patient reviews
+│   │   ├── Hero.tsx        # Full-height hero with gradient visit-details card
+│   │   ├── TrustBar.tsx    # 5-item facilities bar
+│   │   ├── About.tsx       # About the clinic
+│   │   ├── Services.tsx    # Service catalog grid
+│   │   ├── WhyChooseUs.tsx # Clinic environment bento grid
+│   │   ├── Doctors.tsx     # Dental team cards
 │   │   ├── FAQ.tsx         # Accordion FAQ
 │   │   └── Footer.tsx      # 4-column footer + map embed
 │   │
@@ -95,10 +95,11 @@ npm start
 | | |
 |---|---|
 | Clinic | Cera Dental Clinic |
-| Address | Nayabazar Rd, Pokhara 33700, Nepal |
+| Address | Pokhara-8, Nayabazar, Nepal (opposite GMC Hospital OPD gate) |
 | Phone | +977 9846020595 |
-| Hours | Sunday – Friday, 9:00 AM – 6:30 PM |
-| Closed | **Every Saturday** |
+| WhatsApp | +977 9768059598 |
+| Email | ceradentalpokhara@gmail.com |
+| Hours | Every day, 9:00 AM – 7:00 PM |
 
 ---
 

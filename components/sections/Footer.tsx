@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import {
   Phone,
@@ -9,52 +8,58 @@ import {
   Clock,
   Facebook,
   Instagram,
-  AlertCircle,
+  Music2,
+  MessageCircle,
+  Star,
+  Navigation as NavigationIcon,
 } from 'lucide-react'
 
+const WHATSAPP_URL = 'https://wa.me/9779768059598'
+const MAPS_URL     = 'https://maps.app.goo.gl/Hkhezb1KBi1UcUNP7'
+
 const SERVICES_LIST = [
-  'Comprehensive Check-ups',
-  'Smile Design',
-  'Root Canal Therapy',
-  'Dental Implants',
-  'Teeth Whitening',
-  'Invisalign & Aligners',
+  'General Dentistry',
+  'Scaling & Polishing',
+  'Root Canal Treatment',
   'Crowns & Bridges',
-  'Pediatric Dentistry',
+  'Teeth Whitening',
+  'Braces & Aligners',
+  'Dental Implants',
+  'Paediatric Dentistry',
 ]
 
 const QUICK_LINKS = [
-  { label: 'Services',     href: '#services' },
-  { label: 'Why Choose Us', href: '#why-us' },
-  { label: 'Our Doctors',  href: '#doctors' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'FAQ',          href: '#faq' },
+  { label: 'About',      href: '#about' },
+  { label: 'Treatments', href: '#services' },
+  { label: 'Our Team',   href: '#team' },
+  { label: 'FAQ',        href: '#faq' },
+  { label: 'Find Us',    href: '#visit' },
 ]
 
-const HOURS = [
-  { day: 'Sunday',    hours: '9:00 AM – 6:30 PM', open: true },
-  { day: 'Monday',    hours: '9:00 AM – 6:30 PM', open: true },
-  { day: 'Tuesday',   hours: '9:00 AM – 6:30 PM', open: true },
-  { day: 'Wednesday', hours: '9:00 AM – 6:30 PM', open: true },
-  { day: 'Thursday',  hours: '9:00 AM – 6:30 PM', open: true },
-  { day: 'Friday',    hours: '9:00 AM – 6:30 PM', open: true },
-  { day: 'Saturday',  hours: 'Closed',             open: false },
+const SOCIALS = [
+  { icon: <Facebook className="w-4 h-4" />,  label: 'Facebook',  href: 'https://www.facebook.com/p/Cera-Dental-Clinic-61588173137651/' },
+  { icon: <Instagram className="w-4 h-4" />, label: 'Instagram', href: 'https://www.instagram.com/cera.dental.official/' },
+  { icon: <Music2 className="w-4 h-4" />,    label: 'TikTok',    href: 'https://www.tiktok.com/@ceradentalofficial' },
 ]
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-slate-900 text-slate-300">
+    <footer id="visit" className="bg-slate-900 text-slate-300">
 
       {/* Top CTA band */}
       <div className="bg-gradient-to-r from-cyan-700 via-cyan-600 to-cyan-700 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
+              <p className="text-cyan-100 text-xs font-semibold tracking-widest uppercase mb-1">
+                A Question or Ready to Visit?
+              </p>
               <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-1">
-                Ready to Transform Your Smile?
+                We&apos;re happy to help.
               </h2>
-              <p className="text-cyan-100 text-sm">
-                Book a free consultation today. No commitments, no pressure.
+              <p className="text-cyan-100 text-sm max-w-xl">
+                Appointments are available by WhatsApp, phone call or walk-in.
+                Emergency dental availability is during clinic hours, 9 AM–7 PM.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
@@ -63,15 +68,16 @@ export default function Footer() {
                 className="flex items-center justify-center gap-2 bg-white text-cyan-700 hover:bg-cyan-50 font-bold px-6 py-3.5 rounded-xl text-sm shadow-md transition-all hover:scale-[1.02]"
               >
                 <Phone className="w-4 h-4" />
-                Call +977 984-602-0595
+                Call +977 9846020595
               </a>
               <a
-                href="https://wa.me/9779846020595"
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-xl text-sm shadow-md transition-all hover:scale-[1.02]"
               >
-                WhatsApp Us
+                <MessageCircle className="w-4 h-4" />
+                Message Us on WhatsApp
               </a>
             </div>
           </div>
@@ -95,19 +101,18 @@ export default function Footer() {
             </div>
 
             <p className="text-slate-400 text-sm leading-relaxed mb-5">
-              Advanced dental care in the heart of Pokhara. State-of-the-art
-              technology. Genuinely painless procedures. Real smiles.
+              Crafting confident smiles. Thoughtful dental care in Pokhara.
             </p>
 
             <div className="space-y-3 text-sm">
               <a
-                href="https://maps.google.com/?q=Nayabazar+Rd+Pokhara+Nepal"
+                href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 text-slate-400 hover:text-cyan-400 transition-colors"
               >
                 <MapPin className="w-4 h-4 text-cyan-500 shrink-0 mt-0.5" />
-                Nayabazar Rd, Pokhara 33700, Nepal
+                Pokhara-8, Nayabazar, Nepal
               </a>
               <a
                 href="tel:+9779846020595"
@@ -117,23 +122,22 @@ export default function Footer() {
                 +977 9846020595
               </a>
               <a
-                href="mailto:info@ceradental.com.np"
+                href="mailto:ceradentalpokhara@gmail.com"
                 className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors"
               >
                 <Mail className="w-4 h-4 text-cyan-500 shrink-0" />
-                info@ceradental.com.np
+                ceradentalpokhara@gmail.com
               </a>
             </div>
 
             {/* Social */}
             <div className="flex gap-3 mt-6">
-              {[
-                { icon: <Facebook className="w-4 h-4" />, label: 'Facebook' },
-                { icon: <Instagram className="w-4 h-4" />, label: 'Instagram' },
-              ].map((s) => (
+              {SOCIALS.map((s) => (
                 <a
                   key={s.label}
-                  href="#"
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={s.label}
                   className="w-9 h-9 rounded-xl bg-slate-800 hover:bg-cyan-700 flex items-center justify-center text-slate-400 hover:text-white transition-all"
                 >
@@ -146,7 +150,7 @@ export default function Footer() {
           {/* Services */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-5">
-              Services
+              Treatments
             </h3>
             <ul className="space-y-2.5">
               {SERVICES_LIST.map((s) => (
@@ -191,39 +195,30 @@ export default function Footer() {
                 Opening Hours
               </span>
             </h3>
-            <ul className="space-y-2">
-              {HOURS.map((h) => (
-                <li
-                  key={h.day}
-                  className="flex items-center justify-between gap-2 text-xs"
-                >
-                  <span
-                    className={
-                      h.open ? 'text-slate-300' : 'text-slate-500'
-                    }
-                  >
-                    {h.day}
-                  </span>
-                  <span
-                    className={
-                      h.open
-                        ? 'text-cyan-400 font-medium'
-                        : 'text-rose-400 font-semibold'
-                    }
-                  >
-                    {h.hours}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-center justify-between gap-2 text-sm">
+              <span className="text-slate-300">Every day</span>
+              <span className="text-cyan-400 font-medium">9:00 AM – 7:00 PM</span>
+            </div>
 
-            {/* Saturday warning */}
-            <div className="mt-4 flex items-start gap-2 bg-rose-950/50 border border-rose-800/50 rounded-xl p-3">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-              <p className="text-rose-300 text-xs leading-relaxed">
-                <span className="font-bold">Closed every Saturday.</span> Please
-                plan your visits accordingly.
-              </p>
+            <div className="mt-6 space-y-3">
+              <a
+                href={MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 rounded-xl px-4 py-3 text-sm text-slate-300 hover:text-white transition-colors"
+              >
+                <NavigationIcon className="w-4 h-4 text-cyan-400 shrink-0" />
+                Get directions to the clinic
+              </a>
+              <a
+                href="https://g.page/r/CbHMmO5HCnfrEAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 rounded-xl px-4 py-3 text-sm text-slate-300 hover:text-white transition-colors"
+              >
+                <Star className="w-4 h-4 text-amber-400 shrink-0" />
+                Leave us a Google review
+              </a>
             </div>
           </div>
         </div>
@@ -233,25 +228,24 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
         <div className="rounded-2xl overflow-hidden border border-slate-800">
           <div className="relative">
-            {/* Actual Google Maps embed — replace src with your clinic's embed URL from Google Maps */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3516.2938752393406!2d83.9852!3d28.2096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399595abd4b20c4d%3A0xd5d9a58e98e69a44!2sNayabazar%2C%20Pokhara%2033700!5e0!3m2!1sen!2snp!4v1700000000000"
+              src="https://www.google.com/maps?q=Cera%20Dental%20Clinic%2C%20Nayabazar%2C%20Pokhara&ll=28.2118581,83.987093&z=17&output=embed"
               width="100%"
               height="280"
               style={{ border: 0, display: 'block' }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Cera Dental Clinic — Nayabazar Rd, Pokhara 33700"
+              title="Cera Dental Clinic — Nayabazar, Pokhara"
             />
           </div>
-          <div className="bg-slate-800 px-5 py-3 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-sm text-slate-300">
-              <MapPin className="w-4 h-4 text-cyan-400" />
-              Nayabazar Rd, Pokhara 33700, Nepal
+          <div className="bg-slate-800 px-5 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+            <div className="flex items-start gap-2 text-sm text-slate-300">
+              <MapPin className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+              Opposite the GMC Hospital OPD gate and Karmachari Sanchaya Kosh Bhawan, Nayabazar, Pokhara.
             </div>
             <a
-              href="https://maps.google.com/?q=Nayabazar+Rd+Pokhara+Nepal"
+              href={MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-cyan-400 hover:text-cyan-300 text-xs font-semibold transition-colors shrink-0"
@@ -270,7 +264,7 @@ export default function Footer() {
             reserved.
           </p>
           <p>
-            Nayabazar Rd, Pokhara 33700, Nepal ·{' '}
+            Pokhara-8, Nayabazar, Nepal ·{' '}
             <a
               href="tel:+9779846020595"
               className="text-cyan-600 hover:text-cyan-400"
