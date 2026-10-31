@@ -9,6 +9,7 @@ import {
   HeartHandshake,
 } from 'lucide-react'
 import SectionHeader from '@/components/ui/SectionHeader'
+import Image from 'next/image'
 import clsx from 'clsx'
 
 const FEATURES = [
@@ -136,6 +137,63 @@ export default function WhyChooseUs() {
               </p>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Inside the clinic — photo + video gallery */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+          className="mt-16"
+        >
+          <h3 className="text-2xl font-extrabold text-slate-900 mb-6 text-center">
+            Inside <span className="gradient-text">Cera</span>
+          </h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 lg:h-[640px]">
+            <figure className="col-span-2 relative h-64 sm:h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card">
+              <Image
+                src="/clinic/front.jpg"
+                alt="Cera Dental Clinic building on Nayabazar road, Pokhara"
+                fill
+                sizes="(min-width: 1024px) 66vw, 100vw"
+                className="object-cover"
+              />
+              <figcaption className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+                Find us in Nayabazar, Pokhara
+              </figcaption>
+            </figure>
+            <div className="relative row-span-2 h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card bg-slate-100">
+              <video
+                src="/clinic/chair-video.mp4"
+                poster="/clinic/chair-video-poster.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-label="Treatment room with a modern dental chair"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+            <figure className="relative h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card">
+              <Image
+                src="/clinic/chair.jpg"
+                alt="Modern dental chair with overhead light and patient screen"
+                fill
+                sizes="(min-width: 1024px) 33vw, 50vw"
+                className="object-cover"
+              />
+            </figure>
+            <figure className="relative col-span-2 lg:col-span-1 h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card">
+              <Image
+                src="/clinic/mirror.jpg"
+                alt="Tooth-shaped mirror at the clinic"
+                fill
+                sizes="(min-width: 1024px) 33vw, 100vw"
+                className="object-cover object-top"
+              />
+            </figure>
+          </div>
         </motion.div>
       </div>
     </section>

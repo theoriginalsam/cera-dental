@@ -82,9 +82,7 @@ export default function DoctorCard({
       {/* CTA strip */}
       <div className="px-6 pb-5">
         <a
-          href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#book"
           className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50 border border-slate-200 hover:border-cyan-200 text-slate-600 hover:text-cyan-700 text-sm font-semibold transition-all duration-200"
         >
           Book Appointment

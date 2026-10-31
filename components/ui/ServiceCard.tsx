@@ -1,15 +1,16 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import clsx from 'clsx'
 
 interface ServiceCardProps {
   icon: React.ReactNode
   title: string
   description: string
+  image: string
+  alt: string
   tag?: string
-  accent?: string
-  large?: boolean
   className?: string
 }
 
@@ -17,9 +18,9 @@ export default function ServiceCard({
   icon,
   title,
   description,
+  image,
+  alt,
   tag,
-  accent = 'bg-cyan-50',
-  large = false,
   className,
 }: ServiceCardProps) {
   return (
@@ -27,28 +28,30 @@ export default function ServiceCard({
       whileHover={{ y: -4, boxShadow: '0 20px 48px rgba(8,145,178,0.18)' }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
       className={clsx(
-        'bento-card relative overflow-hidden rounded-2xl bg-white p-6',
-        'border border-slate-100 shadow-card cursor-default',
-        large ? 'md:col-span-2' : '',
+        'group relative overflow-hidden rounded-2xl bg-white',
+        'border border-slate-100 shadow-card cursor-default flex flex-col',
         className
       )}
     >
-      {/* Background accent blob */}
-      <div
-        className={clsx(
-          'absolute -top-8 -right-8 w-32 h-32 rounded-full opacity-40 blur-2xl',
-          accent
-        )}
-      />
-
-      <div className="relative z-10 flex flex-col gap-4 h-full">
+      {/* Photo */}
+      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
         {tag && (
-          <span className="self-start text-xs font-bold uppercase tracking-widest text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full">
+          <span className="absolute top-3 left-3 text-xs font-bold tracking-widest text-cyan-700 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
             {tag}
           </span>
         )}
+      </div>
 
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center text-white shadow-md shadow-cyan-200">
+      <div className="relative p-6 pt-0 flex flex-col gap-3 flex-1">
+        {/* Icon overlapping the photo */}
+        <div className="-mt-6 w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center text-white shadow-md shadow-cyan-200 ring-4 ring-white">
           {icon}
         </div>
 

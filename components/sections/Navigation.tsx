@@ -2,16 +2,24 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, Menu, X } from 'lucide-react'
+import { Phone, Menu, X, Facebook, Instagram, Music2 } from 'lucide-react'
 import Image from 'next/image'
 import clsx from 'clsx'
+import { SOCIAL_LINKS } from '@/lib/clinic'
 
 const NAV_LINKS = [
   { label: 'About',      href: '#about' },
   { label: 'Treatments', href: '#services' },
   { label: 'Our Team',   href: '#team' },
+  { label: 'Book',       href: '#book' },
   { label: 'FAQ',        href: '#faq' },
   { label: 'Find Us',    href: '#visit' },
+]
+
+const SOCIALS = [
+  { label: 'Facebook',  href: SOCIAL_LINKS.facebook,  icon: <Facebook className="w-4 h-4" /> },
+  { label: 'Instagram', href: SOCIAL_LINKS.instagram, icon: <Instagram className="w-4 h-4" /> },
+  { label: 'TikTok',    href: SOCIAL_LINKS.tiktok,    icon: <Music2 className="w-4 h-4" /> },
 ]
 
 export default function Navigation() {
@@ -47,16 +55,16 @@ export default function Navigation() {
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-20 md:h-24">
 
             {/* Logo */}
             <a href="#home" className="flex items-center group">
               <Image
-                src="/logo.png"
+                src="/logo-horizontal.png"
                 alt="Cera Dental Clinic"
-                width={120}
-                height={48}
-                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                width={200}
+                height={80}
+                className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 priority
               />
             </a>
@@ -130,11 +138,11 @@ export default function Navigation() {
               <div className="flex items-center justify-between p-5 border-b border-slate-100">
                 <div className="flex items-center">
                   <Image
-                    src="/logo.png"
+                    src="/logo-horizontal.png"
                     alt="Cera Dental Clinic"
-                    width={100}
-                    height={40}
-                    className="h-8 w-auto object-contain"
+                    width={140}
+                    height={56}
+                    className="h-11 w-auto object-contain"
                   />
                 </div>
                 <button
@@ -176,6 +184,20 @@ export default function Navigation() {
                 >
                   WhatsApp Us
                 </a>
+                <div className="flex justify-center gap-3 pt-2">
+                  {SOCIALS.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-cyan-50 flex items-center justify-center text-slate-500 hover:text-cyan-700 transition-colors"
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </>

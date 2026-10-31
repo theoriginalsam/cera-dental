@@ -17,81 +17,22 @@ import {
 } from 'lucide-react'
 import SectionHeader from '@/components/ui/SectionHeader'
 import ServiceCard from '@/components/ui/ServiceCard'
+import { TREATMENTS } from '@/lib/clinic'
 
-const SERVICES = [
-  {
-    icon: <Stethoscope className="w-5 h-5" />,
-    title: 'General Dentistry',
-    description: 'Routine dental check-ups and general dental care.',
-    accent: 'bg-cyan-100',
-  },
-  {
-    icon: <Droplets className="w-5 h-5" />,
-    title: 'Scaling & Polishing',
-    description: 'Professional cleaning for teeth and gums.',
-    accent: 'bg-sky-100',
-  },
-  {
-    icon: <Layers className="w-5 h-5" />,
-    title: 'Dental Fillings',
-    description: 'Restorative treatment for teeth affected by decay.',
-    accent: 'bg-teal-100',
-  },
-  {
-    icon: <Zap className="w-5 h-5" />,
-    title: 'Root Canal Treatment',
-    description: 'Root canal treatment (RCT).',
-    accent: 'bg-rose-100',
-  },
-  {
-    icon: <Crown className="w-5 h-5" />,
-    title: 'Crowns & Bridges',
-    description: 'Fixed restorative options for damaged or missing teeth.',
-    accent: 'bg-indigo-100',
-  },
-  {
-    icon: <Sparkles className="w-5 h-5" />,
-    title: 'Aesthetic Dentistry',
-    description: 'Aesthetic and cosmetic dental treatments.',
-    accent: 'bg-violet-100',
-  },
-  {
-    icon: <Sun className="w-5 h-5" />,
-    title: 'Teeth Whitening',
-    description: 'Teeth whitening and bleaching.',
-    accent: 'bg-yellow-100',
-  },
-  {
-    icon: <Gem className="w-5 h-5" />,
-    title: 'Dental Diamonds',
-    description: 'Small decorative tooth gems bonded to the tooth surface.',
-    accent: 'bg-fuchsia-100',
-  },
-  {
-    icon: <Smile className="w-5 h-5" />,
-    title: 'Braces & Aligners',
-    description: 'Orthodontic treatment with braces and aligners.',
-    accent: 'bg-cyan-100',
-  },
-  {
-    icon: <Anchor className="w-5 h-5" />,
-    title: 'Dental Implants',
-    description: 'Dental implant treatment.',
-    accent: 'bg-amber-100',
-  },
-  {
-    icon: <Syringe className="w-5 h-5" />,
-    title: 'Tooth Extraction',
-    description: 'Tooth removal when clinically indicated.',
-    accent: 'bg-slate-200',
-  },
-  {
-    icon: <Baby className="w-5 h-5" />,
-    title: 'Paediatric Dentistry',
-    description: 'Dental care for children.',
-    accent: 'bg-pink-100',
-  },
-]
+const ICONS: Record<(typeof TREATMENTS)[number]['slug'], React.ReactNode> = {
+  general:    <Stethoscope className="w-5 h-5" />,
+  scaling:    <Droplets className="w-5 h-5" />,
+  fillings:   <Layers className="w-5 h-5" />,
+  rootcanal:  <Zap className="w-5 h-5" />,
+  crowns:     <Crown className="w-5 h-5" />,
+  aesthetic:  <Sparkles className="w-5 h-5" />,
+  whitening:  <Sun className="w-5 h-5" />,
+  diamonds:   <Gem className="w-5 h-5" />,
+  braces:     <Smile className="w-5 h-5" />,
+  implants:   <Anchor className="w-5 h-5" />,
+  extraction: <Syringe className="w-5 h-5" />,
+  paediatric: <Baby className="w-5 h-5" />,
+}
 
 const containerVariants = {
   hidden: {},
@@ -114,7 +55,7 @@ export default function Services() {
           description="Explore the dental services listed by our clinic. Treatment recommendations are made following an individual assessment."
         />
 
-        {/* Bento grid */}
+        {/* Photo card grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -122,14 +63,15 @@ export default function Services() {
           viewport={{ once: true, margin: '-60px' }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {SERVICES.map((service, i) => (
-            <motion.div key={service.title} variants={itemVariants}>
+          {TREATMENTS.map((t, i) => (
+            <motion.div key={t.slug} variants={itemVariants}>
               <ServiceCard
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
+                icon={ICONS[t.slug]}
+                title={t.title}
+                description={t.description}
+                image={t.image}
+                alt={t.alt}
                 tag={String(i + 1).padStart(2, '0')}
-                accent={service.accent}
                 className="h-full"
               />
             </motion.div>
@@ -149,9 +91,7 @@ export default function Services() {
             and discussion with the treating dentist.
           </p>
           <a
-            href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#book"
             className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-8 py-3.5 rounded-xl shadow-md shadow-cyan-200 transition-all hover:scale-[1.02]"
           >
             Book an Appointment

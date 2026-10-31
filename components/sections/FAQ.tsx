@@ -17,7 +17,7 @@ const FAQS = [
     category: 'General',
     question: 'How do I book an appointment?',
     answer:
-      'Appointments are available by WhatsApp, phone call or walk-in. You can call us on +977 9846020595 or message us on WhatsApp.',
+      'You can fill in the booking form on this page and our team will contact you to confirm, message us on WhatsApp, call us on +977 9846020595, or simply walk in during clinic hours.',
   },
   {
     category: 'General',

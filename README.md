@@ -90,6 +90,22 @@ npm start
 
 ---
 
+## Online Booking (Supabase)
+
+The booking form (`#book`) saves requests to Supabase; the clinic views them at **`/admin`**.
+Until the variables below are set, the form shows a message asking visitors to use WhatsApp instead.
+
+1. In Supabase → **SQL Editor**, run [`supabase/schema.sql`](supabase/schema.sql) once.
+2. Add these variables to `.env.local` (local) **and** Vercel → Project → Settings → Environment Variables (live), then redeploy:
+
+| Variable | Where to find it |
+|---|---|
+| `SUPABASE_URL` | Supabase → Project Settings → API → Project URL |
+| `SUPABASE_SECRET_KEY` | Supabase → Project Settings → API Keys → Secret key (`sb_secret_…`) — server-only |
+| `ADMIN_PASSWORD` | Any strong password; staff use it to sign in at `/admin` |
+
+---
+
 ## Business Details
 
 | | |

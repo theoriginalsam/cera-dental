@@ -9,11 +9,15 @@ import {
   Phone,
   ChevronDown,
   ArrowDown,
+  Facebook,
+  Instagram,
+  Music2,
 } from 'lucide-react'
+import { SOCIAL_LINKS } from '@/lib/clinic'
 
 const STATS = [
   { value: '2025',   label: 'Established' },
-  { value: '12',     label: 'Treatments Offered' },
+  { value: 'All',    label: 'Kinds of Dental Treatment' },
   { value: '5',      label: 'Dentists on Our Team' },
   { value: '7 days', label: 'Open Every Week' },
 ]
@@ -22,6 +26,12 @@ const TRUST_ITEMS = [
   { icon: <ShieldCheck className="w-4 h-4" />, text: 'Established 2025' },
   { icon: <MapPin className="w-4 h-4" />,      text: 'Pokhara · Nayabazar' },
   { icon: <Clock className="w-4 h-4" />,       text: 'Open Daily, 9AM–7PM' },
+]
+
+const SOCIALS = [
+  { label: 'Facebook',  href: SOCIAL_LINKS.facebook,  icon: <Facebook className="w-4 h-4" /> },
+  { label: 'Instagram', href: SOCIAL_LINKS.instagram, icon: <Instagram className="w-4 h-4" /> },
+  { label: 'TikTok',    href: SOCIAL_LINKS.tiktok,    icon: <Music2 className="w-4 h-4" /> },
 ]
 
 const VISIT_DETAILS = [
@@ -120,9 +130,7 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-3"
             >
               <a
-                href="https://wa.me/9779768059598?text=Hi%20Cera%20Dental%2C%20I%20would%20like%20to%20book%20an%20appointment."
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#book"
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-4 text-lg font-semibold rounded-xl bg-cyan-600 text-white hover:bg-cyan-700 shadow-md shadow-cyan-200 hover:shadow-lg hover:shadow-cyan-300 transition-all hover:scale-[1.02]"
               >
                 <CalendarCheck className="w-5 h-5" />
@@ -148,6 +156,28 @@ export default function Hero() {
               <MapPin className="w-4 h-4 text-cyan-500 shrink-0" />
               Pokhara-8, Nayabazar, Nepal
             </motion.a>
+
+            {/* Social */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.65 }}
+              className="flex items-center gap-2"
+            >
+              <span className="text-slate-400 text-sm mr-1">Follow us</span>
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-9 h-9 rounded-xl bg-slate-50 border border-slate-200 hover:border-cyan-300 hover:bg-cyan-50 flex items-center justify-center text-slate-500 hover:text-cyan-700 transition-colors"
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </motion.div>
           </div>
 
           {/* ── Right — gradient card ── */}
