@@ -29,7 +29,7 @@ A high-performance, conversion-optimized marketing website for **Cera Dental Cli
 - **About Section** — clinic background and approach
 - **Services Grid** — 12 treatments in a card grid with stagger animations
 - **Clinic Environment Grid** — equipment and facilities in a mixed-size bento layout
-- **Dental Team** — 4 dentist cards (Aesthetic, Orthodontics, Periodontology & Implantology, Oral & Maxillofacial Surgery)
+- **Dental Team** — 5 dentist cards with qualifications and NMC numbers
 - **FAQ Accordion** — 8 Q&As with smooth Framer Motion AnimatePresence transitions
 - **Google Maps Embed** — Nayabazar, Pokhara location in the footer
 - **Mobile Floating Bar** — sticky Call + WhatsApp bottom tabs on mobile

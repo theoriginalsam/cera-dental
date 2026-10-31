@@ -14,7 +14,7 @@ import {
 const STATS = [
   { value: '2025',   label: 'Established' },
   { value: '12',     label: 'Treatments Offered' },
-  { value: '4',      label: 'Dentists on Our Team' },
+  { value: '5',      label: 'Dentists on Our Team' },
   { value: '7 days', label: 'Open Every Week' },
 ]
 

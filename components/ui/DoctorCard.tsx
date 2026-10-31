@@ -7,7 +7,7 @@ import clsx from 'clsx'
 interface DoctorCardProps {
   name: string
   title: string
-  specialty: string
+  specialty?: string
   registration?: string
   experience?: string
   initials: string
@@ -36,7 +36,7 @@ export default function DoctorCard({
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       whileHover={{ y: -6 }}
-      className="group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-card hover:shadow-card-hover transition-shadow duration-300"
+      className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-card hover:shadow-card-hover transition-shadow duration-300"
     >
       {/* Top colour band */}
       <div className={clsx('h-2 w-full', color)} />
@@ -56,7 +56,9 @@ export default function DoctorCard({
         {/* Name + specialty */}
         <h3 className="text-lg font-bold text-slate-900 leading-tight">{name}</h3>
         <p className="text-cyan-600 font-semibold text-sm mt-0.5">{title}</p>
-        <p className="text-slate-500 text-sm mt-2 leading-relaxed">{specialty}</p>
+        {specialty && (
+          <p className="text-slate-500 text-sm mt-2 leading-relaxed">{specialty}</p>
+        )}
 
         {/* Meta */}
         {(registration || experience) && (

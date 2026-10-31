@@ -6,32 +6,36 @@ import DoctorCard from '@/components/ui/DoctorCard'
 const DOCTORS = [
   {
     name: 'Dr. Shisham Khanal',
-    title: 'BDS · Medical Officer',
-    specialty: 'Aesthetic Dentistry',
-    registration: 'NMC Registration No. 37766',
-    experience: "3 years' experience",
+    title: 'BDS (NMC, KU)',
+    registration: 'NMC No. 37766',
     initials: 'SK',
     color: 'bg-cyan-600',
   },
   {
+    name: 'Dr. Prakash Kafle',
+    title: 'BDS (BPKIHS)',
+    registration: 'NMC No. 32537',
+    initials: 'PK',
+    color: 'bg-rose-500',
+  },
+  {
     name: 'Dr. Anjal GC',
-    title: 'BDS, MDS',
-    specialty: 'Consultant Orthodontics, Braces and Aligner Specialist',
-    registration: 'NMC Registration No. 23434',
+    title: 'BDS, MDS (Orthodontics)',
+    registration: 'NMC No. 23434',
     initials: 'AG',
     color: 'bg-violet-600',
   },
   {
     name: 'Dr. Suresh Bhandari',
-    title: 'BDS, MDS',
-    specialty: 'Consultant Periodontology and Oral Implantology',
+    title: 'BDS, MDS (Periodontology and Oral Implantology)',
+    registration: 'NMC No. 22222',
     initials: 'SB',
     color: 'bg-emerald-600',
   },
   {
     name: 'Dr. Yashuma Tiwari',
-    title: 'BDS, MDS',
-    specialty: 'Consultant Oral and Maxillofacial Surgery',
+    title: 'BDS, MDS (Oral and Maxillofacial Surgery)',
+    registration: 'NMC No. 24367',
     initials: 'YT',
     color: 'bg-amber-500',
   },
@@ -48,9 +52,15 @@ export default function Doctors() {
           description="Our dental team includes general and specialist dental professionals."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Flex-wrap so the last row of the 5 cards stays centred */}
+        <div className="flex flex-wrap justify-center gap-6">
           {DOCTORS.map((doctor, i) => (
-            <DoctorCard key={doctor.name} {...doctor} index={i} />
+            <div
+              key={doctor.name}
+              className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+            >
+              <DoctorCard {...doctor} index={i} />
+            </div>
           ))}
         </div>
 
