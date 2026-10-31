@@ -1,11 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { CalendarCheck, MessageCircle, Phone, CheckCircle2, Loader2 } from 'lucide-react'
+import { CalendarCheck, MessageCircle, Phone, CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
 import clsx from 'clsx'
 import SectionHeader from '@/components/ui/SectionHeader'
-import { PHONE_DISPLAY, PHONE_TEL, TIME_SLOTS, TREATMENTS, WHATSAPP_URL } from '@/lib/clinic'
+import {
+  BOOKING_DAYS_AHEAD,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  TIME_SLOTS,
+  TREATMENTS,
+  WHATSAPP_URL,
+  addDays,
+  clinicNow,
+  isSlotOpen,
+} from '@/lib/clinic'
 
 const TREATMENT_OPTIONS = [...TREATMENTS.map((t) => t.title), 'Not sure / Check-up']
 
@@ -20,12 +30,32 @@ const EMPTY = {
 }
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
+type Field  = 'name' | 'phone'
+type FieldErrors = Partial<Record<Field, string>>
+
+// Same rules as the API, with friendlier wording shown next to each field
+function validate(form: typeof EMPTY): FieldErrors {
+  const errors: FieldErrors = {}
+  const name   = form.name.trim()
+  const digits = form.phone.replace(/\D/g, '')
+
+  if (!name) errors.name = 'Please enter your name.'
+  else if (name.length < 2) errors.name = 'Please enter your full name.'
+
+  if (!form.phone.trim()) errors.phone = 'Please enter your phone number so we can confirm your booking.'
+  else if (!/^\+?[0-9\s-]+$/.test(form.phone.trim()) || digits.length < 7 || digits.length > 15)
+    errors.phone = 'Please enter a valid phone number, e.g. 98XXXXXXXX.'
+
+  return errors
+}
 
 const inputClass =
   'w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+const inputErrorClass = 'border-rose-300 bg-rose-50/40 focus:ring-rose-400'
 
-function todayInKathmandu() {
-  return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kathmandu' })
+// Formats a YYYY-MM-DD date string; UTC keeps the calendar day stable in every browser time zone
+function formatDay(date: string, options: Intl.DateTimeFormatOptions) {
+  return new Date(`${date}T00:00:00Z`).toLocaleDateString('en-GB', { timeZone: 'UTC', ...options })
 }
 
 function whatsappLink(form: typeof EMPTY) {
@@ -33,7 +63,7 @@ function whatsappLink(form: typeof EMPTY) {
   if (form.name)           lines.push(`Name: ${form.name}`)
   if (form.phone)          lines.push(`Phone: ${form.phone}`)
   if (form.treatment)      lines.push(`Treatment: ${form.treatment}`)
-  if (form.preferred_date) lines.push(`Preferred date: ${form.preferred_date}`)
+  if (form.preferred_date) lines.push(`Preferred date: ${formatDay(form.preferred_date, { weekday: 'long', day: 'numeric', month: 'long' })}`)
   if (form.preferred_time) lines.push(`Preferred time: ${form.preferred_time}`)
   if (form.message)        lines.push(`Note: ${form.message}`)
   return `${WHATSAPP_URL}?text=${encodeURIComponent(lines.join('\n'))}`
@@ -43,15 +73,61 @@ export default function Booking() {
   const [form, setForm]     = useState(EMPTY)
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError]   = useState('')
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const [attempted, setAttempted]     = useState(false)
+  const nameRef  = useRef<HTMLInputElement>(null)
+  const phoneRef = useRef<HTMLInputElement>(null)
+
+  // Computed after mount: the page is prerendered, so "today" must come from the visitor's clock
+  const [now, setNow] = useState<ReturnType<typeof clinicNow> | null>(null)
+  useEffect(() => setNow(clinicNow()), [])
+
+  // Upcoming dates; today is skipped once every slot for today has passed
+  const days = useMemo(() => {
+    if (!now) return []
+    const lastSlot = TIME_SLOTS[TIME_SLOTS.length - 1]
+    const start = isSlotOpen(lastSlot, now.date, now) ? 0 : 1
+    return Array.from({ length: BOOKING_DAYS_AHEAD }, (_, i) => addDays(now.date, start + i))
+  }, [now])
+
+  const pickDate = (date: string) =>
+    setForm((f) => {
+      const preferred_date = f.preferred_date === date ? '' : date
+      const slot = TIME_SLOTS.find((t) => t.label === f.preferred_time)
+      const keepTime = !slot || !now || !preferred_date || isSlotOpen(slot, preferred_date, now)
+      return { ...f, preferred_date, preferred_time: keepTime ? f.preferred_time : '' }
+    })
+
+  const pickTime = (label: string) =>
+    setForm((f) => ({ ...f, preferred_time: f.preferred_time === label ? '' : label }))
 
   const update = (field: keyof typeof EMPTY) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       setForm((f) => ({ ...f, [field]: e.target.value }))
+      // Clear a field's message as soon as the visitor starts fixing it
+      if (field in fieldErrors) setFieldErrors((errs) => ({ ...errs, [field]: undefined }))
+    }
+
+  // After the first submit attempt, re-check a field whenever the visitor leaves it
+  const recheck = (field: Field) => () => {
+    if (!attempted) return
+    setFieldErrors((errs) => ({ ...errs, [field]: validate(form)[field] }))
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setStatus('sending')
     setError('')
+
+    setAttempted(true)
+    const errors = validate(form)
+    setFieldErrors(errors)
+    if (errors.name || errors.phone) {
+      setStatus('idle')
+      ;(errors.name ? nameRef : phoneRef).current?.focus()
+      return
+    }
+
+    setStatus('sending')
     try {
       const res = await fetch('/api/appointments', {
         method: 'POST',
@@ -60,13 +136,22 @@ export default function Booking() {
       })
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
-        throw new Error(data.error || 'Something went wrong. Please try again.')
+        throw new Error(data.error || 'Something went wrong on our side. Please try again in a moment.')
       }
       setStatus('sent')
       setForm(EMPTY)
+      setFieldErrors({})
+      setAttempted(false)
     } catch (err) {
       setStatus('error')
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      // fetch throws a TypeError when the visitor is offline or the server can't be reached
+      setError(
+        err instanceof TypeError
+          ? "We couldn't reach our server. Please check your internet connection and try again."
+          : err instanceof Error
+            ? err.message
+            : 'Something went wrong. Please try again.'
+      )
     }
   }
 
@@ -117,26 +202,136 @@ export default function Booking() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
-                <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
-                  Full name *
-                  <input required minLength={2} maxLength={100} value={form.name} onChange={update('name')} className={inputClass} placeholder="Your name" autoComplete="name" />
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
-                  Phone number *
-                  <input required type="tel" pattern="\+?[0-9\s\-]{7,20}" value={form.phone} onChange={update('phone')} className={inputClass} placeholder="98XXXXXXXX" autoComplete="tel" />
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
-                  Preferred date
-                  <input type="date" min={todayInKathmandu()} value={form.preferred_date} onChange={update('preferred_date')} className={inputClass} />
-                </label>
-                <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
-                  Preferred time
-                  <select value={form.preferred_time} onChange={update('preferred_time')} className={inputClass}>
-                    <option value="">Any time</option>
-                    {TIME_SLOTS.map((t) => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                </label>
+              <form noValidate onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="book-name" className="text-sm font-medium text-slate-700">Full name *</label>
+                  <input
+                    id="book-name"
+                    ref={nameRef}
+                    maxLength={100}
+                    value={form.name}
+                    onChange={update('name')}
+                    onBlur={recheck('name')}
+                    aria-invalid={Boolean(fieldErrors.name)}
+                    aria-describedby={fieldErrors.name ? 'book-name-error' : undefined}
+                    className={clsx(inputClass, fieldErrors.name && inputErrorClass)}
+                    placeholder="Your name"
+                    autoComplete="name"
+                  />
+                  {fieldErrors.name && (
+                    <p id="book-name-error" className="flex items-start gap-1.5 text-xs text-rose-600">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-px" />
+                      {fieldErrors.name}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="book-phone" className="text-sm font-medium text-slate-700">Phone number *</label>
+                  <input
+                    id="book-phone"
+                    ref={phoneRef}
+                    type="tel"
+                    inputMode="tel"
+                    maxLength={20}
+                    value={form.phone}
+                    onChange={update('phone')}
+                    onBlur={recheck('phone')}
+                    aria-invalid={Boolean(fieldErrors.phone)}
+                    aria-describedby={fieldErrors.phone ? 'book-phone-error' : undefined}
+                    className={clsx(inputClass, fieldErrors.phone && inputErrorClass)}
+                    placeholder="98XXXXXXXX"
+                    autoComplete="tel"
+                  />
+                  {fieldErrors.phone && (
+                    <p id="book-phone-error" className="flex items-start gap-1.5 text-xs text-rose-600">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-px" />
+                      {fieldErrors.phone}
+                    </p>
+                  )}
+                </div>
+                {/* Preferred date — upcoming days only */}
+                <fieldset className="sm:col-span-2 min-w-0">
+                  <legend className="text-sm font-medium text-slate-700 mb-1.5">
+                    Preferred date <span className="text-slate-400 font-normal">(optional)</span>
+                  </legend>
+                  <div className="chip-scroll flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
+                    {days.length === 0 &&
+                      Array.from({ length: 7 }, (_, i) => (
+                        <div key={i} className="shrink-0 w-16 h-[76px] rounded-xl bg-slate-100 animate-pulse" />
+                      ))}
+                    {days.map((date, i) => {
+                      const selected = form.preferred_date === date
+                      const top =
+                        date === now?.date ? 'Today'
+                        : date === (now && addDays(now.date, 1)) ? 'Tomorrow'
+                        : formatDay(date, { weekday: 'short' })
+                      return (
+                        <button
+                          key={date}
+                          type="button"
+                          onClick={() => pickDate(date)}
+                          aria-pressed={selected}
+                          aria-label={formatDay(date, { weekday: 'long', day: 'numeric', month: 'long' })}
+                          className={clsx(
+                            'shrink-0 snap-start w-16 rounded-xl border py-2 flex flex-col items-center transition-colors',
+                            selected
+                              ? 'bg-cyan-600 border-cyan-600 text-white shadow-md shadow-cyan-200'
+                              : 'bg-white border-slate-200 text-slate-700 hover:border-cyan-300 hover:bg-cyan-50',
+                            i === 0 && !selected && 'border-cyan-200'
+                          )}
+                        >
+                          <span className={clsx('text-[11px] font-semibold', selected ? 'text-cyan-50' : 'text-slate-500')}>
+                            {top}
+                          </span>
+                          <span className="text-xl font-extrabold leading-tight">{formatDay(date, { day: 'numeric' })}</span>
+                          <span className={clsx('text-[11px]', selected ? 'text-cyan-50' : 'text-slate-400')}>
+                            {formatDay(date, { month: 'short' })}
+                          </span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {form.preferred_date
+                      ? <>Selected: <span className="font-semibold text-slate-700">{formatDay(form.preferred_date, { weekday: 'long', day: 'numeric', month: 'long' })}</span> · tap again to clear</>
+                      : 'Open every day. Need a later date? Mention it in the message.'}
+                  </p>
+                </fieldset>
+
+                {/* Preferred time */}
+                <fieldset className="sm:col-span-2 min-w-0">
+                  <legend className="text-sm font-medium text-slate-700 mb-1.5">
+                    Preferred time <span className="text-slate-400 font-normal">(optional)</span>
+                  </legend>
+                  <div className="grid grid-cols-3 gap-2">
+                    {TIME_SLOTS.map((t) => {
+                      const open = !now || !form.preferred_date || isSlotOpen(t, form.preferred_date, now)
+                      const selected = form.preferred_time === t.label
+                      return (
+                        <button
+                          key={t.label}
+                          type="button"
+                          disabled={!open}
+                          onClick={() => pickTime(t.label)}
+                          aria-pressed={selected}
+                          className={clsx(
+                            'rounded-xl border px-2 py-2.5 flex flex-col items-center transition-colors',
+                            selected
+                              ? 'bg-cyan-600 border-cyan-600 text-white shadow-md shadow-cyan-200'
+                              : open
+                                ? 'bg-white border-slate-200 text-slate-700 hover:border-cyan-300 hover:bg-cyan-50'
+                                : 'bg-slate-100 border-slate-100 text-slate-400 cursor-not-allowed'
+                          )}
+                        >
+                          <span className="text-sm font-semibold">{t.short}</span>
+                          <span className={clsx('text-[11px]', selected ? 'text-cyan-50' : 'text-slate-400')}>
+                            {open ? t.hours : 'Passed'}
+                          </span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </fieldset>
                 <label className="sm:col-span-2 flex flex-col gap-1.5 text-sm font-medium text-slate-700">
                   Treatment
                   <select value={form.treatment} onChange={update('treatment')} className={inputClass}>
@@ -162,9 +357,22 @@ export default function Booking() {
                 />
 
                 {status === 'error' && (
-                  <p className="sm:col-span-2 text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-4 py-3">
-                    {error}
-                  </p>
+                  <div role="alert" className="sm:col-span-2 flex items-start gap-3 text-sm bg-rose-50 border border-rose-200 rounded-xl px-4 py-3">
+                    <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
+                    <div>
+                      <p className="font-semibold text-rose-700">Your request wasn&apos;t sent</p>
+                      <p className="text-rose-600 mt-0.5">{error}</p>
+                      <a
+                        href={whatsappLink(form)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 mt-2 font-semibold text-emerald-700 hover:text-emerald-800"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        Send the same details on WhatsApp instead
+                      </a>
+                    </div>
+                  </div>
                 )}
 
                 <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3 pt-1">

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
-import { TREATMENTS, TIME_SLOTS } from '@/lib/clinic'
+import { TREATMENTS, TIME_SLOTS, BOOKING_DAYS_AHEAD, addDays, clinicNow, isSlotOpen } from '@/lib/clinic'
 
 const TREATMENT_TITLES: readonly string[] = [...TREATMENTS.map((t) => t.title), 'Not sure / Check-up']
 
@@ -34,11 +34,21 @@ export async function POST(request: Request) {
   if (!/^\+?[0-9\s-]{7,20}$/.test(phone)) {
     return NextResponse.json({ error: 'Please enter a valid phone number.' }, { status: 400 })
   }
-  if (preferred_date && !/^\d{4}-\d{2}-\d{2}$/.test(preferred_date)) {
-    return NextResponse.json({ error: 'Please choose a valid date.' }, { status: 400 })
+  const now = clinicNow()
+  if (
+    preferred_date &&
+    (!/^\d{4}-\d{2}-\d{2}$/.test(preferred_date) ||
+      preferred_date < now.date ||
+      preferred_date > addDays(now.date, BOOKING_DAYS_AHEAD))
+  ) {
+    return NextResponse.json({ error: 'Please choose a date from the list.' }, { status: 400 })
   }
-  if (preferred_time && !(TIME_SLOTS as readonly string[]).includes(preferred_time)) {
+  const slot = TIME_SLOTS.find((s) => s.label === preferred_time)
+  if (preferred_time && !slot) {
     return NextResponse.json({ error: 'Please choose a valid time.' }, { status: 400 })
+  }
+  if (slot && preferred_date && !isSlotOpen(slot, preferred_date, now)) {
+    return NextResponse.json({ error: 'That time has already passed today. Please choose another time.' }, { status: 400 })
   }
   if (treatment && !TREATMENT_TITLES.includes(treatment)) {
     return NextResponse.json({ error: 'Please choose a valid treatment.' }, { status: 400 })

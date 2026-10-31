@@ -26,4 +26,33 @@ export const TREATMENTS = [
   { slug: 'paediatric', title: 'Paediatric Dentistry', description: 'Dental care for children.',                                     image: '/services/paediatric.jpg', alt: "Child's toothbrush and a small toy tooth" },
 ] as const
 
-export const TIME_SLOTS = ['Morning (9 AM–12 PM)', 'Afternoon (12–4 PM)', 'Evening (4–7 PM)'] as const
+// endHour is in clinic local time (Asia/Kathmandu), used to hide slots that have already passed today
+export const TIME_SLOTS = [
+  { label: 'Morning (9 AM–12 PM)', short: 'Morning',   hours: '9 AM–12 PM', endHour: 12 },
+  { label: 'Afternoon (12–4 PM)',  short: 'Afternoon', hours: '12–4 PM',    endHour: 16 },
+  { label: 'Evening (4–7 PM)',     short: 'Evening',   hours: '4–7 PM',     endHour: 19 },
+] as const
+
+export const CLINIC_TIME_ZONE = 'Asia/Kathmandu'
+export const BOOKING_DAYS_AHEAD = 14
+
+// Today's date (YYYY-MM-DD) and current hour in the clinic's time zone
+export function clinicNow(now = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: CLINIC_TIME_ZONE,
+    year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hourCycle: 'h23',
+  }).formatToParts(now)
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? ''
+  return { date: `${get('year')}-${get('month')}-${get('day')}`, hour: Number(get('hour')) }
+}
+
+// Adds days to a YYYY-MM-DD date string without time-zone drift
+export function addDays(date: string, days: number) {
+  const [y, m, d] = date.split('-').map(Number)
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10)
+}
+
+// A slot can still be booked for today if at least an hour of it remains
+export function isSlotOpen(slot: (typeof TIME_SLOTS)[number], date: string, now = clinicNow()) {
+  return date !== now.date || now.hour < slot.endHour - 1
+}
