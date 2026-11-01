@@ -56,3 +56,6 @@ export function addDays(date: string, days: number) {
 export function isSlotOpen(slot: (typeof TIME_SLOTS)[number], date: string, now = clinicNow()) {
   return date !== now.date || now.hour < slot.endHour - 1
 }
+
+// Public site address, used for images in emails (email apps can't load localhost)
+export const SITE_URL = 'https://cera-dental.vercel.app'
