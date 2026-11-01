@@ -30,16 +30,14 @@ export async function notifyNewBooking(booking: BookingDetails, adminUrl: string
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) return
 
-  const when = [booking.preferred_date && formatDate(booking.preferred_date), booking.preferred_time]
-    .filter(Boolean)
-    .join(', ') || 'Not specified'
   const whatsapp = `https://wa.me/${booking.phone.replace(/\D/g, '').replace(/^(?!977)(\d{10})$/, '977$1')}`
 
   const rows: [string, string][] = [
     ['Name', booking.name],
     ['Phone', booking.phone],
     ['Treatment', booking.treatment || 'Not specified'],
-    ['Preferred time', when],
+    ['Date', booking.preferred_date ? formatDate(booking.preferred_date) : 'Not chosen'],
+    ['Time', booking.preferred_time || 'Not chosen'],
     ['Message', booking.message || '—'],
   ]
 
