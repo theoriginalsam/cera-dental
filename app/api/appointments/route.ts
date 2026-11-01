@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSupabase } from '@/lib/supabase'
+import { notifyNewBooking } from '@/lib/notify'
 import { TREATMENTS, TIME_SLOTS, BOOKING_DAYS_AHEAD, addDays, clinicNow, isSlotOpen } from '@/lib/clinic'
 
 const TREATMENT_TITLES: readonly string[] = [...TREATMENTS.map((t) => t.title), 'Not sure / Check-up']
@@ -78,6 +79,12 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
+
+  // Awaited so the serverless function isn't stopped before the email is sent
+  await notifyNewBooking(
+    { name, phone, preferred_date, preferred_time, treatment, message },
+    new URL('/admin', request.url).toString()
+  )
 
   return NextResponse.json({ ok: true }, { status: 201 })
 }
