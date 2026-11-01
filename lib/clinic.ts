@@ -34,7 +34,7 @@ export const TIME_SLOTS = [
 ] as const
 
 export const CLINIC_TIME_ZONE = 'Asia/Kathmandu'
-export const BOOKING_DAYS_AHEAD = 14
+export const BOOKING_DAYS_AHEAD = 90 // about 3 months; patients sometimes book 1–2 months ahead
 
 // Today's date (YYYY-MM-DD) and current hour in the clinic's time zone
 export function clinicNow(now = new Date()) {

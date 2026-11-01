@@ -105,7 +105,3 @@ body {
   100% { transform: scale(1.5); opacity: 0; }
 }
 .ping-slow { animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
-
-/* ─── Slim horizontal scrollbar (booking date chips) ─── */
-.chip-scroll::-webkit-scrollbar { height: 4px; }
-.chip-scroll { scrollbar-width: thin; }

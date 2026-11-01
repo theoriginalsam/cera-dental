@@ -12,6 +12,28 @@ import SectionHeader from '@/components/ui/SectionHeader'
 import Image from 'next/image'
 import clsx from 'clsx'
 
+const CAPTION =
+  'absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-full'
+
+const GALLERY: {
+  src: string
+  alt: string
+  width: number
+  height: number
+  caption?: string
+  video?: boolean
+  poster?: string
+}[] = [
+  { src: '/clinic/reception.jpg',     width: 960,  height: 1280, caption: 'Reception',             alt: 'Reception desk with the Cera logo and staff welcoming a patient' },
+  { src: '/clinic/treatment.jpg',     width: 723,  height: 1280, caption: 'Patient care',          alt: 'Dentist and assistant treating a patient in the dental chair' },
+  { src: '/clinic/chair-video.mp4',   width: 540,  height: 960,  video: true, poster: '/clinic/chair-video-poster.jpg', alt: 'Treatment room with a modern dental chair' },
+  { src: '/clinic/signboard.jpg',     width: 1280, height: 1280, caption: 'Our signboard',         alt: 'Blue Cera Dental Clinic signboard above the clinic entrance in Nayabazar' },
+  { src: '/clinic/room.jpg',          width: 960,  height: 1280, caption: 'Treatment room',        alt: 'Dental chair with overhead light, monitor and operator stool' },
+  { src: '/clinic/sterilization.jpg', width: 960,  height: 1280, caption: 'Sterilization',         alt: 'Clinical area with UV sterilization cabinet, instrument trolley and steel trays' },
+  { src: '/clinic/sink.jpg',          width: 960,  height: 1280,                                   alt: 'Tooth-shaped mirror above a hand-wash basin' },
+  { src: '/clinic/plant.jpg',         width: 960,  height: 1280,                                   alt: 'Jade plant in a white ceramic pot at the clinic' },
+]
+
 const FEATURES = [
   {
     icon: <ScanLine className="w-6 h-6" />,
@@ -150,49 +172,47 @@ export default function WhyChooseUs() {
           <h3 className="text-2xl font-extrabold text-slate-900 mb-6 text-center">
             Inside <span className="gradient-text">Cera</span>
           </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 lg:h-[640px]">
-            <figure className="col-span-2 relative h-64 sm:h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card">
-              <Image
-                src="/clinic/front.jpg"
-                alt="Cera Dental Clinic building on Nayabazar road, Pokhara"
-                fill
-                sizes="(min-width: 1024px) 66vw, 100vw"
-                className="object-cover"
-              />
-              <figcaption className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-full">
-                Find us in Nayabazar, Pokhara
-              </figcaption>
-            </figure>
-            <div className="relative row-span-2 h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card bg-slate-100">
-              <video
-                src="/clinic/chair-video.mp4"
-                poster="/clinic/chair-video-poster.jpg"
-                autoPlay
-                muted
-                loop
-                playsInline
-                aria-label="Treatment room with a modern dental chair"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <figure className="relative h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card">
-              <Image
-                src="/clinic/chair.jpg"
-                alt="Modern dental chair with overhead light and patient screen"
-                fill
-                sizes="(min-width: 1024px) 33vw, 50vw"
-                className="object-cover"
-              />
-            </figure>
-            <figure className="relative col-span-2 lg:col-span-1 h-80 lg:h-auto rounded-2xl overflow-hidden shadow-card">
-              <Image
-                src="/clinic/mirror.jpg"
-                alt="Tooth-shaped mirror at the clinic"
-                fill
-                sizes="(min-width: 1024px) 33vw, 100vw"
-                className="object-cover object-top"
-              />
-            </figure>
+          <figure className="relative h-64 sm:h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-card mb-4">
+            <Image
+              src="/clinic/front.jpg"
+              alt="Cera Dental Clinic building on Nayabazar road, Pokhara"
+              fill
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="object-cover"
+            />
+            <figcaption className={CAPTION}>Find us in Nayabazar, Pokhara</figcaption>
+          </figure>
+
+          {/* Masonry: photos keep their own shape instead of being cropped to a grid */}
+          <div className="columns-2 lg:columns-4 gap-4">
+            {GALLERY.map((item) => (
+              <figure key={item.src} className="relative mb-4 break-inside-avoid rounded-2xl overflow-hidden shadow-card bg-slate-100">
+                {item.video ? (
+                  <video
+                    src={item.src}
+                    poster={item.poster}
+                    width={item.width}
+                    height={item.height}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    aria-label={item.alt}
+                    className="block w-full h-auto"
+                  />
+                ) : (
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    width={item.width}
+                    height={item.height}
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                    className="block w-full h-auto"
+                  />
+                )}
+                {item.caption && <figcaption className={CAPTION}>{item.caption}</figcaption>}
+              </figure>
+            ))}
           </div>
         </motion.div>
       </div>

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { CalendarCheck, MessageCircle, Phone, CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
 import clsx from 'clsx'
 import SectionHeader from '@/components/ui/SectionHeader'
+import DatePicker from '@/components/ui/DatePicker'
 import {
   BOOKING_DAYS_AHEAD,
   PHONE_DISPLAY,
@@ -82,17 +83,19 @@ export default function Booking() {
   const [now, setNow] = useState<ReturnType<typeof clinicNow> | null>(null)
   useEffect(() => setNow(clinicNow()), [])
 
-  // Upcoming dates; today is skipped once every slot for today has passed
-  const days = useMemo(() => {
-    if (!now) return []
+  // Bookable range; today is skipped once every slot for today has passed
+  const range = useMemo(() => {
+    if (!now) return null
     const lastSlot = TIME_SLOTS[TIME_SLOTS.length - 1]
-    const start = isSlotOpen(lastSlot, now.date, now) ? 0 : 1
-    return Array.from({ length: BOOKING_DAYS_AHEAD }, (_, i) => addDays(now.date, start + i))
+    return {
+      min: isSlotOpen(lastSlot, now.date, now) ? now.date : addDays(now.date, 1),
+      max: addDays(now.date, BOOKING_DAYS_AHEAD),
+    }
   }, [now])
 
   const pickDate = (date: string) =>
     setForm((f) => {
-      const preferred_date = f.preferred_date === date ? '' : date
+      const preferred_date = date
       const slot = TIME_SLOTS.find((t) => t.label === f.preferred_time)
       const keepTime = !slot || !now || !preferred_date || isSlotOpen(slot, preferred_date, now)
       return { ...f, preferred_date, preferred_time: keepTime ? f.preferred_time : '' }
@@ -249,52 +252,37 @@ export default function Booking() {
                     </p>
                   )}
                 </div>
-                {/* Preferred date — upcoming days only */}
+                {/* Preferred date — calendar limited to the bookable range */}
                 <fieldset className="sm:col-span-2 min-w-0">
                   <legend className="text-sm font-medium text-slate-700 mb-1.5">
                     Preferred date <span className="text-slate-400 font-normal">(optional)</span>
                   </legend>
-                  <div className="chip-scroll flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
-                    {days.length === 0 &&
-                      Array.from({ length: 7 }, (_, i) => (
-                        <div key={i} className="shrink-0 w-16 h-[76px] rounded-xl bg-slate-100 animate-pulse" />
-                      ))}
-                    {days.map((date, i) => {
-                      const selected = form.preferred_date === date
-                      const top =
-                        date === now?.date ? 'Today'
-                        : date === (now && addDays(now.date, 1)) ? 'Tomorrow'
-                        : formatDay(date, { weekday: 'short' })
-                      return (
-                        <button
-                          key={date}
-                          type="button"
-                          onClick={() => pickDate(date)}
-                          aria-pressed={selected}
-                          aria-label={formatDay(date, { weekday: 'long', day: 'numeric', month: 'long' })}
-                          className={clsx(
-                            'shrink-0 snap-start w-16 rounded-xl border py-2 flex flex-col items-center transition-colors',
-                            selected
-                              ? 'bg-cyan-600 border-cyan-600 text-white shadow-md shadow-cyan-200'
-                              : 'bg-white border-slate-200 text-slate-700 hover:border-cyan-300 hover:bg-cyan-50',
-                            i === 0 && !selected && 'border-cyan-200'
-                          )}
-                        >
-                          <span className={clsx('text-[11px] font-semibold', selected ? 'text-cyan-50' : 'text-slate-500')}>
-                            {top}
-                          </span>
-                          <span className="text-xl font-extrabold leading-tight">{formatDay(date, { day: 'numeric' })}</span>
-                          <span className={clsx('text-[11px]', selected ? 'text-cyan-50' : 'text-slate-400')}>
-                            {formatDay(date, { month: 'short' })}
-                          </span>
+                  {range && now ? (
+                    <DatePicker
+                      value={form.preferred_date}
+                      onChange={pickDate}
+                      min={range.min}
+                      max={range.max}
+                      today={now.date}
+                    />
+                  ) : (
+                    <div className="h-[340px] rounded-2xl bg-slate-100 animate-pulse" />
+                  )}
+                  <p className="text-xs text-slate-500 mt-2">
+                    {form.preferred_date ? (
+                      <>
+                        Selected:{' '}
+                        <span className="font-semibold text-slate-700">
+                          {formatDay(form.preferred_date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                        </span>{' '}
+                        ·{' '}
+                        <button type="button" onClick={() => pickDate('')} className="font-semibold text-cyan-700 hover:text-cyan-800">
+                          Clear
                         </button>
-                      )
-                    })}
-                  </div>
-                  <p className="text-xs text-slate-500 mt-1">
-                    {form.preferred_date
-                      ? <>Selected: <span className="font-semibold text-slate-700">{formatDay(form.preferred_date, { weekday: 'long', day: 'numeric', month: 'long' })}</span> · tap again to clear</>
-                      : 'Open every day. Need a later date? Mention it in the message.'}
+                      </>
+                    ) : (
+                      'Open every day. You can book up to 3 months ahead.'
+                    )}
                   </p>
                 </fieldset>
 

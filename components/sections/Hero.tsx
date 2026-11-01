@@ -15,13 +15,6 @@ import {
 } from 'lucide-react'
 import { SOCIAL_LINKS } from '@/lib/clinic'
 
-const STATS = [
-  { value: '2025',   label: 'Established' },
-  { value: 'All',    label: 'Kinds of Dental Treatment' },
-  { value: '5',      label: 'Dentists on Our Team' },
-  { value: '7 days', label: 'Open Every Week' },
-]
-
 const TRUST_ITEMS = [
   { icon: <ShieldCheck className="w-4 h-4" />, text: 'Established 2025' },
   { icon: <MapPin className="w-4 h-4" />,      text: 'Pokhara · Nayabazar' },
@@ -210,42 +203,9 @@ export default function Hero() {
                   </div>
                 ))}
               </div>
-
-              <div className="w-full h-px bg-white/20" />
-
-              {/* Stats grid */}
-              <div className="grid grid-cols-2 gap-3">
-                {STATS.map((s) => (
-                  <div
-                    key={s.label}
-                    className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-4 text-center"
-                  >
-                    <p className="text-2xl font-extrabold text-white">{s.value}</p>
-                    <p className="text-xs text-cyan-100 mt-1 leading-tight">{s.label}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </motion.div>
         </div>
-
-        {/* Mobile stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="lg:hidden grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10"
-        >
-          {STATS.map((s) => (
-            <div
-              key={s.label}
-              className="bg-slate-50 border border-slate-100 rounded-2xl p-4 text-center"
-            >
-              <p className="text-2xl font-extrabold gradient-text">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-1 leading-tight">{s.label}</p>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Scroll cue */}

@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       preferred_date < now.date ||
       preferred_date > addDays(now.date, BOOKING_DAYS_AHEAD))
   ) {
-    return NextResponse.json({ error: 'Please choose a date from the list.' }, { status: 400 })
+    return NextResponse.json({ error: 'Please choose a date from the calendar (up to 3 months ahead).' }, { status: 400 })
   }
   const slot = TIME_SLOTS.find((s) => s.label === preferred_time)
   if (preferred_time && !slot) {
