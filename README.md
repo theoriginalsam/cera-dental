@@ -102,7 +102,11 @@ Until the variables below are set, the form shows a message asking visitors to u
 |---|---|
 | `SUPABASE_URL` | Supabase → Project Settings → API → Project URL |
 | `SUPABASE_SECRET_KEY` | Supabase → Project Settings → API Keys → Secret key (`sb_secret_…`) — server-only |
-| `ADMIN_PASSWORD` | Any strong password; staff use it to sign in at `/admin` |
+| `ADMIN_PASSWORD` | The first admin password, used to sign in at `/admin` |
+
+Staff can change the password at **`/admin/password`**. The new password is stored as a salted hash in the
+`admin_settings` table and replaces `ADMIN_PASSWORD`; changing it signs out every other device.
+Forgot it? Delete the `password_hash` row in Supabase → Table Editor → `admin_settings`, then sign in with `ADMIN_PASSWORD`.
 
 ---
 

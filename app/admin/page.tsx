@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { isAdmin, isAdminConfigured } from '@/lib/admin-auth'
 import { getSupabase, STATUSES, type Appointment } from '@/lib/supabase'
-import { login, logout, updateStatus } from './actions'
+import { login, updateStatus } from './actions'
+import Shell from './Shell'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,35 +34,14 @@ function formatDate(date: string) {
   })
 }
 
-function Shell({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-slate-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo-horizontal.png" alt="Cera Dental Clinic" width={160} height={52} className="h-10 w-auto" />
-            <span className="hidden sm:inline text-sm font-semibold text-slate-400">Bookings</span>
-          </Link>
-          {isAdmin() && (
-            <form action={logout}>
-              <button className="text-sm font-semibold text-slate-500 hover:text-cyan-700">Sign out</button>
-            </form>
-          )}
-        </div>
-      </header>
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10">{children}</main>
-    </div>
-  )
-}
-
-function LoginForm({ error }: { error: boolean }) {
+function LoginForm({ error, configured }: { error: boolean; configured: boolean }) {
   return (
     <div className="max-w-sm mx-auto bg-white border border-slate-100 rounded-2xl shadow-card p-8">
       <h1 className="text-2xl font-extrabold text-slate-900 mb-1">Admin sign in</h1>
       <p className="text-sm text-slate-500 mb-6">View appointment requests from the website.</p>
-      {!isAdminConfigured() && (
+      {!configured && (
         <p className="mb-4 text-sm bg-amber-50 border border-amber-200 text-amber-800 rounded-xl p-3">
-          ADMIN_PASSWORD is not set on the server yet.
+          No admin password is set on the server yet (ADMIN_PASSWORD).
         </p>
       )}
       <form action={login} className="space-y-4">
@@ -88,10 +67,10 @@ export default async function AdminPage({
 }: {
   searchParams: { error?: string; status?: string }
 }) {
-  if (!isAdmin()) {
+  if (!(await isAdmin())) {
     return (
-      <Shell>
-        <LoginForm error={searchParams.error === '1'} />
+      <Shell signedIn={false}>
+        <LoginForm error={searchParams.error === '1'} configured={await isAdminConfigured()} />
       </Shell>
     )
   }
@@ -99,7 +78,7 @@ export default async function AdminPage({
   const supabase = getSupabase()
   if (!supabase) {
     return (
-      <Shell>
+      <Shell signedIn>
         <p className="bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl p-5 text-sm">
           Supabase is not configured. Set SUPABASE_URL and SUPABASE_SECRET_KEY on the server.
         </p>
@@ -118,7 +97,7 @@ export default async function AdminPage({
   const appointments = (data ?? []) as Appointment[]
 
   return (
-    <Shell>
+    <Shell signedIn>
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900">Appointment requests</h1>

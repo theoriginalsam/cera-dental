@@ -19,3 +19,14 @@ alter table public.appointments enable row level security;
 
 create index if not exists appointments_created_at_idx
   on public.appointments (created_at desc);
+
+-- Admin password set from /admin/password (stored as a salted scrypt hash).
+-- Until a row exists, sign-in uses ADMIN_PASSWORD from the environment.
+-- Forgot the password? Delete the 'password_hash' row here and sign in with ADMIN_PASSWORD again.
+create table if not exists public.admin_settings (
+  key        text primary key,
+  value      text not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.admin_settings enable row level security;

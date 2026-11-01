@@ -26,6 +26,8 @@ export function getSupabase(): SupabaseClient | null {
   if (!url || !key) return null
   client ??= createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
+    // Next.js caches fetch() by default; bookings and the admin password must always be fresh
+    global: { fetch: (input, init) => fetch(input, { ...init, cache: 'no-store' }) },
   })
   return client
 }
