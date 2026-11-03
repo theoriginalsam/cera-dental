@@ -28,8 +28,10 @@ const GALLERY: {
   { src: '/clinic/treatment.jpg',     width: 723,  height: 1280, caption: 'Patient care',          alt: 'Dentist and assistant treating a patient in the dental chair' },
   { src: '/clinic/chair-video.mp4',   width: 540,  height: 960,  video: true, poster: '/clinic/chair-video-poster.jpg', alt: 'Treatment room with a modern dental chair' },
   { src: '/clinic/signboard.jpg',     width: 1280, height: 1280, caption: 'Our signboard',         alt: 'Blue Cera Dental Clinic signboard above the clinic entrance in Nayabazar' },
-  { src: '/clinic/room.jpg',          width: 960,  height: 1280, caption: 'Treatment room',        alt: 'Dental chair with overhead light, monitor and operator stool' },
-  { src: '/clinic/sterilization.jpg', width: 960,  height: 1280, caption: 'Sterilization',         alt: 'Clinical area with UV sterilization cabinet, instrument trolley and steel trays' },
+  { src: '/clinic/treatment-room.jpg', width: 960, height: 1280, caption: 'Treatment room',        alt: 'Treatment room with dental unit, instrument trolley, cabinets and a UV sterilization cabinet on the wall' },
+  { src: '/clinic/sterilization-cabinet.jpg', width: 600, height: 800, caption: 'Sterilization',         alt: 'Open sterilization cabinet with racks of stainless-steel instrument trays' },
+  { src: '/clinic/dental-chair.jpg',  width: 600,  height: 800,  caption: 'Dental chair',          alt: 'Dental chair with a digital X-ray displayed on the monitor' },
+  { src: '/clinic/room.jpg',          width: 960,  height: 1280,                                   alt: 'Dental chair with overhead light, monitor and operator stool' },
   { src: '/clinic/sink.jpg',          width: 960,  height: 1280,                                   alt: 'Tooth-shaped mirror above a hand-wash basin' },
   { src: '/clinic/plant.jpg',         width: 960,  height: 1280,                                   alt: 'Jade plant in a white ceramic pot at the clinic' },
 ]
