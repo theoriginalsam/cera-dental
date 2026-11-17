@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION, REVEAL_STAGGER } from '@/lib/motion'
 import { CalendarDays, MapPin, Users, ArrowRight } from 'lucide-react'
 
 const FACTS = [
@@ -17,10 +18,10 @@ export default function About() {
 
           {/* Copy */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: REVEAL_DURATION, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex flex-col gap-5"
           >
             <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-widest uppercase text-cyan-600">
@@ -56,10 +57,10 @@ export default function About() {
             {FACTS.map((f, i) => (
               <motion.div
                 key={f.label}
-                initial={{ opacity: 0, x: 32 }}
+                initial={{ x: 16 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.5 }}
+                viewport={REVEAL_VIEWPORT}
+                transition={{ delay: i * REVEAL_STAGGER, duration: REVEAL_DURATION }}
                 className="flex items-center gap-4 bg-slate-50 border border-slate-100 rounded-2xl p-5 shadow-card"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center text-white shadow-md shadow-cyan-200 shrink-0">

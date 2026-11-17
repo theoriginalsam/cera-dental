@@ -1,0 +1,17 @@
+# Files never uploaded when deploying with the Vercel CLI (`npx vercel`)
+
+# Secrets — production values live in Vercel → Settings → Environment Variables
+.env
+.env.*
+!.env.example
+
+# Raw originals; the site uses the resized copies in public/
+Images/
+Pics/
+Logo.png
+
+# Local tooling and build output
+.claude/
+.next/
+node_modules/
+tsconfig.tsbuildinfo

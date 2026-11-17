@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION, REVEAL_STAGGER } from '@/lib/motion'
 import {
   ScanLine,
   ShieldPlus,
@@ -82,16 +83,16 @@ const FEATURES = [
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: REVEAL_STAGGER } },
 }
 
 const itemVariants = {
-  hidden:  { opacity: 0, scale: 0.95, y: 20 },
+  hidden:  { scale: 0.98, y: 16 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: REVEAL_DURATION, ease: [0.25, 0.46, 0.45, 0.94] },
   },
 }
 
@@ -111,7 +112,7 @@ export default function WhyChooseUs() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={REVEAL_VIEWPORT}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {FEATURES.map((f) => (
@@ -165,10 +166,10 @@ export default function WhyChooseUs() {
 
         {/* Inside the clinic — photo + video gallery */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.6 }}
+          viewport={REVEAL_VIEWPORT}
+          transition={{ duration: REVEAL_DURATION }}
           className="mt-16"
         >
           <h3 className="text-2xl font-extrabold text-slate-900 mb-6 text-center">

@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION, REVEAL_STAGGER } from '@/lib/motion'
 import { BadgeCheck, Calendar } from 'lucide-react'
 import clsx from 'clsx'
 
@@ -30,12 +31,12 @@ export default function DoctorCard({
 }: DoctorCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
+      viewport={REVEAL_VIEWPORT}
       transition={{
-        duration: 0.6,
-        delay: index * 0.15,
+        duration: REVEAL_DURATION,
+        delay: (index % 3) * REVEAL_STAGGER,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       whileHover={{ y: -6 }}

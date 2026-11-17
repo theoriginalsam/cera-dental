@@ -78,7 +78,7 @@ export default function Hero() {
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] tracking-tight"
             >
               Crafting
@@ -90,7 +90,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-lg"
             >
               Comprehensive dental care for adults and children, delivered with a
@@ -101,7 +101,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
               className="flex flex-wrap gap-2"
             >
               {TRUST_ITEMS.map((item) => (
@@ -119,7 +119,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-3"
             >
               <a
@@ -142,7 +142,7 @@ export default function Hero() {
             <motion.a
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.55 }}
+              transition={{ delay: 0.28 }}
               href="#visit"
               className="flex items-center gap-2 text-slate-400 hover:text-cyan-600 text-sm transition-colors w-fit"
             >
@@ -154,7 +154,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.65 }}
+              transition={{ delay: 0.33 }}
               className="flex items-center gap-2"
             >
               <span className="text-slate-400 text-sm mr-1">Follow us</span>
@@ -177,7 +177,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="hidden lg:block"
           >
             <div className="bg-gradient-to-br from-cyan-600 via-cyan-500 to-teal-400 rounded-3xl p-8 space-y-6 shadow-card-hover">
@@ -213,7 +213,7 @@ export default function Hero() {
         href="#about"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-slate-400 hover:text-cyan-600 transition-colors"
       >
         <span className="text-xs font-medium tracking-widest uppercase">Explore</span>

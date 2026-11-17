@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION, REVEAL_STAGGER } from '@/lib/motion'
 import { CalendarCheck, MessageCircle, Phone, CheckCircle2, Loader2, AlertCircle } from 'lucide-react'
 import clsx from 'clsx'
 import SectionHeader from '@/components/ui/SectionHeader'
@@ -172,10 +173,10 @@ export default function Booking() {
 
           {/* ── Option 1: Booking form ── */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: REVEAL_DURATION }}
             className="lg:col-span-3 bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-card"
           >
             <div className="flex items-center gap-3 mb-6">
@@ -391,10 +392,10 @@ export default function Booking() {
 
           {/* ── Option 2: WhatsApp / call ── */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: REVEAL_DURATION, delay: REVEAL_STAGGER }}
             className="lg:col-span-2 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-3xl p-6 sm:p-8 text-white shadow-card flex flex-col"
           >
             <div className="flex items-center gap-3 mb-6">

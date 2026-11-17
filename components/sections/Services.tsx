@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION, REVEAL_STAGGER } from '@/lib/motion'
 import {
   Stethoscope,
   Droplets,
@@ -36,12 +37,12 @@ const ICONS: Record<(typeof TREATMENTS)[number]['slug'], React.ReactNode> = {
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: REVEAL_STAGGER } },
 }
 
 const itemVariants = {
-  hidden:  { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
+  hidden:  { y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: REVEAL_DURATION, ease: [0.25, 0.46, 0.45, 0.94] } },
 }
 
 export default function Services() {
@@ -60,7 +61,7 @@ export default function Services() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
+          viewport={REVEAL_VIEWPORT}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {TREATMENTS.map((t, i) => (
@@ -80,10 +81,10 @@ export default function Services() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          viewport={REVEAL_VIEWPORT}
+          transition={{ duration: REVEAL_DURATION }}
           className="mt-12 text-center"
         >
           <p className="text-slate-500 mb-4 text-sm max-w-xl mx-auto">

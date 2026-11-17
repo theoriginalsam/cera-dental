@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION, REVEAL_STAGGER } from '@/lib/motion'
 import { Plus, Minus } from 'lucide-react'
 import SectionHeader from '@/components/ui/SectionHeader'
 import clsx from 'clsx'
@@ -69,10 +70,10 @@ interface FAQItemProps {
 function FAQItem({ question, answer, category, isOpen, onToggle, index }: FAQItemProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.06, duration: 0.45 }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ delay: index * REVEAL_STAGGER, duration: REVEAL_DURATION }}
       className={clsx(
         'border rounded-2xl overflow-hidden transition-colors duration-200',
         isOpen
@@ -163,9 +164,9 @@ export default function FAQ() {
 
         {/* Still have questions CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={REVEAL_VIEWPORT}
           className="mt-10 glass rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left"
         >
           <div className="flex-1">

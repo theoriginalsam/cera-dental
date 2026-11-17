@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION, REVEAL_STAGGER } from '@/lib/motion'
 import {
   ShieldCheck,
   ScanLine,
@@ -22,19 +23,19 @@ export default function TrustBar() {
     <section className="bg-white border-b border-slate-100 py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={REVEAL_VIEWPORT}
+          transition={{ duration: REVEAL_DURATION }}
           className="flex flex-wrap justify-center sm:justify-between gap-4 items-center"
         >
           {ITEMS.map((item, i) => (
             <motion.div
               key={item.text}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              viewport={REVEAL_VIEWPORT}
+              transition={{ duration: REVEAL_DURATION, delay: i * REVEAL_STAGGER }}
               className="flex items-center gap-2 text-slate-600 text-sm font-medium"
             >
               <span className="text-cyan-600">{item.icon}</span>

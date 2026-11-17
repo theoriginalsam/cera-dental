@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { REVEAL_VIEWPORT, REVEAL_DURATION } from '@/lib/motion'
 import clsx from 'clsx'
 
 interface SectionHeaderProps {
@@ -28,10 +29,10 @@ export default function SectionHeader({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ duration: REVEAL_DURATION, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={clsx('flex flex-col gap-3 mb-12', alignClass)}
     >
       {eyebrow && (
