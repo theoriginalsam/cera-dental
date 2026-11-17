@@ -1,17 +1,19 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { BadgeCheck, Calendar } from 'lucide-react'
 import clsx from 'clsx'
 
 interface DoctorCardProps {
   name: string
-  title: string
+  title?: string
   specialty?: string
   registration?: string
   experience?: string
   initials: string
   color: string
+  photo?: string
   index?: number
 }
 
@@ -23,6 +25,7 @@ export default function DoctorCard({
   experience,
   initials,
   color,
+  photo,
   index = 0,
 }: DoctorCardProps) {
   return (
@@ -42,20 +45,26 @@ export default function DoctorCard({
       <div className={clsx('h-2 w-full', color)} />
 
       <div className="p-6 flex-1">
-        {/* Avatar */}
-        <div
-          className={clsx(
-            'w-16 h-16 rounded-2xl flex items-center justify-center mb-4',
-            'text-white text-xl font-extrabold shadow-md',
-            color
-          )}
-        >
-          {initials}
-        </div>
+        {/* Photo, or initials when there's no photo yet */}
+        {photo ? (
+          <div className="relative w-24 h-24 rounded-2xl overflow-hidden mb-4 shadow-md ring-4 ring-slate-50">
+            <Image src={photo} alt={name} fill sizes="96px" className="object-cover object-top" />
+          </div>
+        ) : (
+          <div
+            className={clsx(
+              'w-24 h-24 rounded-2xl flex items-center justify-center mb-4',
+              'text-white text-3xl font-extrabold shadow-md ring-4 ring-slate-50',
+              color
+            )}
+          >
+            {initials}
+          </div>
+        )}
 
         {/* Name + specialty */}
         <h3 className="text-lg font-bold text-slate-900 leading-tight">{name}</h3>
-        <p className="text-cyan-600 font-semibold text-sm mt-0.5">{title}</p>
+        {title && <p className="text-cyan-600 font-semibold text-sm mt-0.5">{title}</p>}
         {specialty && (
           <p className="text-slate-500 text-sm mt-2 leading-relaxed">{specialty}</p>
         )}

@@ -8,6 +8,7 @@ const DOCTORS = [
     name: 'Dr. Shisham Khanal',
     title: 'BDS (NMC, KU)',
     registration: 'NMC No. 37766',
+    photo: '/doctors/shisham-khanal.jpg',
     initials: 'SK',
     color: 'bg-cyan-600',
   },
@@ -15,6 +16,7 @@ const DOCTORS = [
     name: 'Dr. Prakash Kafle',
     title: 'BDS (BPKIHS)',
     registration: 'NMC No. 32537',
+    photo: '/doctors/prakash-kafle.jpg',
     initials: 'PK',
     color: 'bg-rose-500',
   },
@@ -29,6 +31,7 @@ const DOCTORS = [
     name: 'Dr. Suresh Bhandari',
     title: 'BDS, MDS (Periodontology and Oral Implantology)',
     registration: 'NMC No. 22222',
+    photo: '/doctors/suresh-bhandari.jpg',
     initials: 'SB',
     color: 'bg-emerald-600',
   },
@@ -38,6 +41,14 @@ const DOCTORS = [
     registration: 'NMC No. 24367',
     initials: 'YT',
     color: 'bg-amber-500',
+  },
+  {
+    name: 'Dr. Sishir Lamsal',
+    title: 'BDS, MDS',
+    registration: 'NMC No. 26688',
+    initials: 'SL',
+    color: 'bg-sky-600',
+    photo: '/doctors/sishir-lamsal.jpg',
   },
 ]
 
@@ -52,7 +63,7 @@ export default function Doctors() {
           description="Our dental team includes general and specialist dental professionals."
         />
 
-        {/* Flex-wrap so the last row of the 5 cards stays centred */}
+        {/* Flex-wrap so a partly filled last row stays centred */}
         <div className="flex flex-wrap justify-center gap-6">
           {DOCTORS.map((doctor, i) => (
             <div
